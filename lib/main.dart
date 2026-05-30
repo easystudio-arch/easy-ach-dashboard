@@ -14,7 +14,7 @@ class EnglishApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'English B2 Mastery',
+      title: 'EasyEnglish-B2',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorSchemeSeed: Colors.blue,

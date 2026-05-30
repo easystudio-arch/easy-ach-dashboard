@@ -1,11 +1,11 @@
 {
-    "name": "english_offline",
-    "short_name": "english_offline",
+    "name": "EasyEnglish-B2",
+    "short_name": "EasyEnglish-B2",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "Belajar Bahasa Inggris Level B2 Offline",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

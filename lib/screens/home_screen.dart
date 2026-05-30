@@ -15,7 +15,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('English B2 Mastery'),
+        title: const Text('EasyEnglish-B2'),
         centerTitle: true,
         actions: [
           IconButton(
@@ -30,6 +30,8 @@ class HomeScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text('Welcome! Master English B2 Level', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+            const SizedBox(height: 4),
+            const Text('Selamat datang! Kuasai Bahasa Inggris Level B2', style: TextStyle(fontSize: 14, color: Colors.blueGrey)),
             const SizedBox(height: 8),
             const Text('Interactive offline course with vocabulary, grammar, reading, listening & quizzes.', style: TextStyle(fontSize: 14, color: Colors.grey)),
             const SizedBox(height: 24),
@@ -39,14 +41,14 @@ class HomeScreen extends StatelessWidget {
                 mainAxisSpacing: 16,
                 crossAxisSpacing: 16,
                 children: [
-                  _ModuleCard(icon: Icons.style, title: 'Vocabulary', subtitle: '30 B2 Words', color: Colors.blue, onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const VocabularyScreen()))),
-                  _ModuleCard(icon: Icons.menu_book, title: 'Grammar', subtitle: '5 Lessons', color: Colors.green, onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const GrammarScreen()))),
-                  _ModuleCard(icon: Icons.article, title: 'Reading', subtitle: '3 Passages', color: Colors.orange, onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ReadingScreen()))),
-                  _ModuleCard(icon: Icons.headphones, title: 'Listening', subtitle: 'TTS Practice', color: Colors.purple, onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ListeningScreen()))),
-                  _ModuleCard(icon: Icons.record_voice_over, title: 'Speaking', subtitle: 'Karaoke Read', color: Colors.deepOrange, onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const SpeakingScreen()))),
-                  _ModuleCard(icon: Icons.chat, title: 'Conversation', subtitle: 'Role Play', color: Colors.indigo, onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ConversationScreen()))),
-                  _ModuleCard(icon: Icons.quiz, title: 'Quiz', subtitle: '15 Questions', color: Colors.red, onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const QuizScreen()))),
-                  _ModuleCard(icon: Icons.trending_up, title: 'Progress', subtitle: 'Track Stats', color: Colors.teal, onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ProgressScreen()))),
+                  _ModuleCard(icon: Icons.style, title: 'Vocabulary', subtitle: 'Kosakata - 500 Kata', color: Colors.blue, onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const VocabularyScreen()))),
+                  _ModuleCard(icon: Icons.menu_book, title: 'Grammar', subtitle: 'Tata Bahasa - 5 Pelajaran', color: Colors.green, onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const GrammarScreen()))),
+                  _ModuleCard(icon: Icons.article, title: 'Reading', subtitle: 'Membaca - 3 Teks', color: Colors.orange, onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ReadingScreen()))),
+                  _ModuleCard(icon: Icons.headphones, title: 'Listening', subtitle: 'Mendengar - TTS', color: Colors.purple, onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ListeningScreen()))),
+                  _ModuleCard(icon: Icons.record_voice_over, title: 'Speaking', subtitle: 'Berbicara - Karaoke', color: Colors.deepOrange, onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const SpeakingScreen()))),
+                  _ModuleCard(icon: Icons.chat, title: 'Conversation', subtitle: 'Percakapan - Role Play', color: Colors.indigo, onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ConversationScreen()))),
+                  _ModuleCard(icon: Icons.quiz, title: 'Quiz', subtitle: 'Kuis - 15 Soal', color: Colors.red, onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const QuizScreen()))),
+                  _ModuleCard(icon: Icons.trending_up, title: 'Progress', subtitle: 'Kemajuan Belajar', color: Colors.teal, onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ProgressScreen()))),
                 ],
               ),
             ),

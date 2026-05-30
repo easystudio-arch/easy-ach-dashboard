@@ -3,8 +3,9 @@ class VocabWord {
   final String definition;
   final String example;
   final String partOfSpeech;
+  final String translation;
 
-  const VocabWord({required this.word, required this.definition, required this.example, required this.partOfSpeech});
+  const VocabWord({required this.word, required this.definition, required this.example, required this.partOfSpeech, this.translation = ''});
 }
 
 class GrammarLesson {

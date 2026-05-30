@@ -97,6 +97,10 @@ class _FlashcardScreenState extends State<_FlashcardScreen> {
                           Text(word.word, style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold)),
                           const SizedBox(height: 8),
                           Text('(${word.partOfSpeech})', style: TextStyle(fontSize: 14, color: Colors.grey[600])),
+                          if (word.translation.isNotEmpty) ...[
+                            const SizedBox(height: 12),
+                            Text('🇮🇩 ${word.translation}', style: TextStyle(fontSize: 16, color: Colors.blue[700], fontWeight: FontWeight.w500)),
+                          ],
                           const SizedBox(height: 24),
                           const Text('Tap to flip', style: TextStyle(color: Colors.grey)),
                         ],
@@ -117,6 +121,14 @@ class _FlashcardScreenState extends State<_FlashcardScreen> {
                           Text(word.definition, style: const TextStyle(fontSize: 16), textAlign: TextAlign.center),
                           const SizedBox(height: 16),
                           Text('"${word.example}"', style: const TextStyle(fontSize: 14, fontStyle: FontStyle.italic), textAlign: TextAlign.center),
+                          if (word.translation.isNotEmpty) ...[
+                            const SizedBox(height: 16),
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                              decoration: BoxDecoration(color: Colors.green[100], borderRadius: BorderRadius.circular(8)),
+                              child: Text('🇮🇩 ${word.translation}', style: TextStyle(fontSize: 15, color: Colors.green[800], fontWeight: FontWeight.w600)),
+                            ),
+                          ],
                         ],
                       ),
                     ),
