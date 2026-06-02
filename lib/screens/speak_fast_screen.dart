@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 
@@ -15,7 +14,6 @@ class _SpeakFastScreenState extends State<SpeakFastScreen> {
   double _speed = 1.0;
   int _currentLine = 0;
   bool _isPlaying = false;
-  Timer? _scrollTimer;
   final ScrollController _scrollCtrl = ScrollController();
 
   static const Map<String, List<String>> _content = {
@@ -141,7 +139,6 @@ class _SpeakFastScreenState extends State<SpeakFastScreen> {
 
   @override
   void dispose() {
-    _scrollTimer?.cancel();
     _tts.stop();
     _scrollCtrl.dispose();
     super.dispose();
@@ -182,13 +179,9 @@ class _SpeakFastScreenState extends State<SpeakFastScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
     return Scaffold(
-      backgroundColor: Colors.black,
-      appBar: AppBar(
-        title: const Text('Speak Fast & Clear'),
-        backgroundColor: Colors.black,
-        foregroundColor: Colors.white,
-      ),
+      appBar: AppBar(title: const Text('Speak Fast & Clear')),
       body: Column(
         children: [
           // Theme selector
@@ -200,10 +193,9 @@ class _SpeakFastScreenState extends State<SpeakFastScreen> {
               children: _content.keys.map((t) => Padding(
                 padding: const EdgeInsets.only(right: 8),
                 child: ChoiceChip(
-                  label: Text(t, style: TextStyle(color: _theme == t ? Colors.black : Colors.white70, fontSize: 12)),
+                  label: Text(t, style: TextStyle(fontSize: 12, color: _theme == t ? cs.onPrimary : null)),
                   selected: _theme == t,
-                  selectedColor: Colors.greenAccent,
-                  backgroundColor: Colors.grey[850],
+                  selectedColor: cs.primary,
                   onSelected: (_) { _stop(); setState(() { _theme = t; _currentLine = 0; }); },
                 ),
               )).toList(),
@@ -214,17 +206,15 @@ class _SpeakFastScreenState extends State<SpeakFastScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: Row(
               children: [
-                const Icon(Icons.speed, color: Colors.white70, size: 18),
+                Icon(Icons.speed, color: cs.primary, size: 18),
                 const SizedBox(width: 8),
-                Text('${_speed.toStringAsFixed(1)}x', style: const TextStyle(color: Colors.greenAccent, fontWeight: FontWeight.bold)),
+                Text('${_speed.toStringAsFixed(1)}x', style: TextStyle(color: cs.primary, fontWeight: FontWeight.bold)),
                 Expanded(
                   child: Slider(
                     value: _speed,
                     min: 0.5,
                     max: 2.0,
                     divisions: 6,
-                    activeColor: Colors.greenAccent,
-                    inactiveColor: Colors.grey[700],
                     onChanged: (v) => setState(() => _speed = v),
                   ),
                 ),
@@ -249,7 +239,7 @@ class _SpeakFastScreenState extends State<SpeakFastScreen> {
                     style: TextStyle(
                       fontSize: isActive ? 20 : 16,
                       fontWeight: isActive ? FontWeight.bold : FontWeight.normal,
-                      color: isActive ? Colors.greenAccent : isPast ? Colors.white38 : Colors.white70,
+                      color: isActive ? cs.primary : isPast ? cs.onSurface.withValues(alpha: 0.4) : cs.onSurface,
                     ),
                   ),
                 );
@@ -263,21 +253,17 @@ class _SpeakFastScreenState extends State<SpeakFastScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 IconButton(
-                  icon: const Icon(Icons.restart_alt, color: Colors.white70, size: 32),
+                  icon: Icon(Icons.restart_alt, color: cs.onSurfaceVariant, size: 32),
                   onPressed: _reset,
                 ),
                 const SizedBox(width: 24),
-                GestureDetector(
-                  onTap: _isPlaying ? _stop : _play,
-                  child: CircleAvatar(
-                    radius: 32,
-                    backgroundColor: Colors.greenAccent,
-                    child: Icon(_isPlaying ? Icons.pause : Icons.play_arrow, color: Colors.black, size: 36),
-                  ),
+                FloatingActionButton(
+                  onPressed: _isPlaying ? _stop : _play,
+                  child: Icon(_isPlaying ? Icons.pause : Icons.play_arrow),
                 ),
                 const SizedBox(width: 24),
                 IconButton(
-                  icon: const Icon(Icons.skip_next, color: Colors.white70, size: 32),
+                  icon: Icon(Icons.skip_next, color: cs.onSurfaceVariant, size: 32),
                   onPressed: _currentLine < _lines.length - 1
                       ? () { _stop(); setState(() => _currentLine++); _scrollToLine(_currentLine); }
                       : null,

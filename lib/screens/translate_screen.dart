@@ -42,7 +42,7 @@ class _LevelSelect extends StatelessWidget {
     return Card(
       margin: const EdgeInsets.only(bottom: 12),
       child: ListTile(
-        leading: CircleAvatar(backgroundColor: color.withOpacity(0.15), child: Icon(icon, color: color)),
+        leading: CircleAvatar(backgroundColor: color.withValues(alpha: 0.15), child: Icon(icon, color: color)),
         title: Text('$title ($code)', style: const TextStyle(fontWeight: FontWeight.bold)),
         subtitle: Text(desc),
         trailing: const Icon(Icons.arrow_forward_ios, size: 16),
