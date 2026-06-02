@@ -12,7 +12,7 @@ class ListeningScreen extends StatefulWidget {
 
 class _ListeningScreenState extends State<ListeningScreen> {
   final FlutterTts _tts = FlutterTts();
-  int _currentIndex = 0;
+  late int _currentIndex = ProgressService.getLastPosition('listening');
   bool _showText = false;
   bool _isPlaying = false;
 
@@ -87,12 +87,12 @@ class _ListeningScreenState extends State<ListeningScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 ElevatedButton(
-                  onPressed: _currentIndex > 0 ? () => setState(() { _currentIndex--; _showText = false; _tts.stop(); _isPlaying = false; }) : null,
+                  onPressed: _currentIndex > 0 ? () => setState(() { _currentIndex--; _showText = false; _tts.stop(); _isPlaying = false; ProgressService.saveLastPosition('listening', _currentIndex); }) : null,
                   child: const Text('Previous'),
                 ),
                 ElevatedButton(
                   onPressed: _currentIndex < texts.length - 1
-                      ? () { ProgressService.incrementListening(); setState(() { _currentIndex++; _showText = false; _tts.stop(); _isPlaying = false; }); }
+                      ? () { ProgressService.incrementListening(); setState(() { _currentIndex++; _showText = false; _tts.stop(); _isPlaying = false; }); ProgressService.saveLastPosition('listening', _currentIndex); }
                       : () { ProgressService.incrementListening(); ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('All listening done! 🎉'))); },
                   child: const Text('Next'),
                 ),

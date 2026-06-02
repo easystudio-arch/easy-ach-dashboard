@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import '../services/progress_service.dart';
 
 class SpeakFastScreen extends StatefulWidget {
   const SpeakFastScreen({super.key});
@@ -10,9 +11,9 @@ class SpeakFastScreen extends StatefulWidget {
 
 class _SpeakFastScreenState extends State<SpeakFastScreen> {
   final FlutterTts _tts = FlutterTts();
-  String _theme = 'Casual';
+  late String _theme = ProgressService.getLastString('speakfast_theme').isEmpty ? 'Casual' : ProgressService.getLastString('speakfast_theme');
   double _speed = 1.0;
-  int _currentLine = 0;
+  late int _currentLine = ProgressService.getLastPosition('speakfast_line');
   bool _isPlaying = false;
   final ScrollController _scrollCtrl = ScrollController();
 
@@ -151,6 +152,7 @@ class _SpeakFastScreenState extends State<SpeakFastScreen> {
     for (int i = _currentLine; i < _lines.length && _isPlaying; i++) {
       if (!mounted) return;
       setState(() => _currentLine = i);
+      ProgressService.saveLastPosition('speakfast_line', i);
       _scrollToLine(i);
       await _tts.speak(_lines[i]);
       await _tts.awaitSpeakCompletion(true);
@@ -197,7 +199,7 @@ class _SpeakFastScreenState extends State<SpeakFastScreen> {
                   label: Text(t, style: TextStyle(fontSize: 12, color: _theme == t ? cs.onPrimary : null)),
                   selected: _theme == t,
                   selectedColor: cs.primary,
-                  onSelected: (_) { _stop(); setState(() { _theme = t; _currentLine = 0; }); },
+                  onSelected: (_) { _stop(); setState(() { _theme = t; _currentLine = 0; }); ProgressService.saveLastString('speakfast_theme', t); ProgressService.saveLastPosition('speakfast_line', 0); },
                 ),
               )).toList(),
             ),
@@ -266,7 +268,7 @@ class _SpeakFastScreenState extends State<SpeakFastScreen> {
                 IconButton(
                   icon: Icon(Icons.skip_next, color: cs.onSurfaceVariant, size: 32),
                   onPressed: _currentLine < _lines.length - 1
-                      ? () { _stop(); setState(() => _currentLine++); _scrollToLine(_currentLine); }
+                      ? () { _stop(); setState(() => _currentLine++); ProgressService.saveLastPosition('speakfast_line', _currentLine); _scrollToLine(_currentLine); }
                       : null,
                 ),
               ],

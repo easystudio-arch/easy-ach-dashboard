@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../services/progress_service.dart';
 
 class TranslateScreen extends StatefulWidget {
   const TranslateScreen({super.key});
@@ -11,8 +12,15 @@ class _TranslateScreenState extends State<TranslateScreen> {
   String? _level;
 
   @override
+  void initState() {
+    super.initState();
+    final saved = ProgressService.getLastString('translate_level');
+    if (saved.isNotEmpty) _level = saved;
+  }
+
+  @override
   Widget build(BuildContext context) {
-    if (_level == null) return _LevelSelect(onSelect: (l) => setState(() => _level = l));
+    if (_level == null) return _LevelSelect(onSelect: (l) { ProgressService.saveLastString('translate_level', l); setState(() => _level = l); });
     return _TranslatePlay(level: _level!, onBack: () => setState(() => _level = null));
   }
 }

@@ -23,4 +23,10 @@ class ProgressService {
     if (score > quizBestScore) _prefs?.setInt('quizBest', score);
     _prefs?.setInt('quizTotal', total);
   }
+
+  // Last position tracking
+  static int getLastPosition(String key) => _prefs?.getInt('last_$key') ?? 0;
+  static void saveLastPosition(String key, int value) => _prefs?.setInt('last_$key', value);
+  static String getLastString(String key) => _prefs?.getString('last_$key') ?? '';
+  static void saveLastString(String key, String value) => _prefs?.setString('last_$key', value);
 }

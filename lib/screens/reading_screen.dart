@@ -8,6 +8,7 @@ class ReadingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final lastRead = ProgressService.getLastPosition('reading_passage');
     return Scaffold(
       appBar: AppBar(title: const Text('Reading Comprehension')),
       body: ListView.builder(
@@ -15,14 +16,24 @@ class ReadingScreen extends StatelessWidget {
         itemCount: ContentProvider.readingPassages.length,
         itemBuilder: (context, index) {
           final passage = ContentProvider.readingPassages[index];
+          final isDone = index < lastRead;
+          final isNext = index == lastRead;
           return Card(
             margin: const EdgeInsets.only(bottom: 12),
+            color: isNext ? Colors.orange.shade50 : null,
             child: ListTile(
-              leading: CircleAvatar(child: Text('${index + 1}')),
+              leading: CircleAvatar(
+                backgroundColor: isDone ? Colors.green : isNext ? Colors.orange : null,
+                foregroundColor: isDone || isNext ? Colors.white : null,
+                child: isDone ? const Icon(Icons.check, size: 18) : Text('${index + 1}'),
+              ),
               title: Text(passage.title, style: const TextStyle(fontWeight: FontWeight.bold)),
-              subtitle: Text('${passage.questions.length} questions'),
+              subtitle: Text('${passage.questions.length} questions${isDone ? " ✓ Done" : isNext ? " ← Continue" : ""}'),
               trailing: const Icon(Icons.arrow_forward_ios),
-              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => _ReadingDetailScreen(passage: passage))),
+              onTap: () {
+                ProgressService.saveLastPosition('reading_passage', index);
+                Navigator.push(context, MaterialPageRoute(builder: (_) => _ReadingDetailScreen(passage: passage, index: index)));
+              },
             ),
           );
         },
@@ -33,7 +44,8 @@ class ReadingScreen extends StatelessWidget {
 
 class _ReadingDetailScreen extends StatefulWidget {
   final ReadingPassage passage;
-  const _ReadingDetailScreen({required this.passage});
+  final int index;
+  const _ReadingDetailScreen({required this.passage, required this.index});
 
   @override
   State<_ReadingDetailScreen> createState() => _ReadingDetailScreenState();
@@ -78,6 +90,10 @@ class _ReadingDetailScreenState extends State<_ReadingDetailScreen> {
   Widget _buildQuiz() {
     if (_qIndex >= widget.passage.questions.length) {
       ProgressService.incrementReading();
+      final current = ProgressService.getLastPosition('reading_passage');
+      if (widget.index >= current) {
+        ProgressService.saveLastPosition('reading_passage', widget.index + 1);
+      }
       return Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

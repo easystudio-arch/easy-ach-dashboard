@@ -3,11 +3,17 @@ import '../data/content_provider.dart';
 import '../models/models.dart';
 import '../services/progress_service.dart';
 
-class GrammarScreen extends StatelessWidget {
+class GrammarScreen extends StatefulWidget {
   const GrammarScreen({super.key});
 
   @override
+  State<GrammarScreen> createState() => _GrammarScreenState();
+}
+
+class _GrammarScreenState extends State<GrammarScreen> {
+  @override
   Widget build(BuildContext context) {
+    final lastCompleted = ProgressService.getLastPosition('grammar_lesson');
     return Scaffold(
       appBar: AppBar(title: const Text('Grammar Lessons')),
       body: ListView.builder(
@@ -15,14 +21,24 @@ class GrammarScreen extends StatelessWidget {
         itemCount: ContentProvider.grammarLessons.length,
         itemBuilder: (context, index) {
           final lesson = ContentProvider.grammarLessons[index];
+          final isDone = index < lastCompleted;
+          final isNext = index == lastCompleted;
           return Card(
             margin: const EdgeInsets.only(bottom: 12),
+            color: isNext ? Colors.blue.shade50 : null,
             child: ListTile(
-              leading: CircleAvatar(child: Text('${index + 1}')),
+              leading: CircleAvatar(
+                backgroundColor: isDone ? Colors.green : isNext ? Colors.blue : null,
+                foregroundColor: isDone || isNext ? Colors.white : null,
+                child: isDone ? const Icon(Icons.check, size: 18) : Text('${index + 1}'),
+              ),
               title: Text(lesson.title, style: const TextStyle(fontWeight: FontWeight.bold)),
-              subtitle: Text('${lesson.exercises.length} exercises'),
+              subtitle: Text('${lesson.exercises.length} exercises${isDone ? " ✓ Done" : isNext ? " ← Continue" : ""}'),
               trailing: const Icon(Icons.arrow_forward_ios),
-              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => _GrammarDetailScreen(lesson: lesson))),
+              onTap: () async {
+                await Navigator.push(context, MaterialPageRoute(builder: (_) => _GrammarDetailScreen(lesson: lesson, index: index)));
+                setState(() {});
+              },
             ),
           );
         },
@@ -33,7 +49,8 @@ class GrammarScreen extends StatelessWidget {
 
 class _GrammarDetailScreen extends StatefulWidget {
   final GrammarLesson lesson;
-  const _GrammarDetailScreen({required this.lesson});
+  final int index;
+  const _GrammarDetailScreen({required this.lesson, required this.index});
 
   @override
   State<_GrammarDetailScreen> createState() => _GrammarDetailScreenState();
@@ -90,6 +107,10 @@ class _GrammarDetailScreenState extends State<_GrammarDetailScreen> {
   Widget _buildExercise() {
     if (_exerciseIndex >= widget.lesson.exercises.length) {
       ProgressService.incrementGrammar();
+      final current = ProgressService.getLastPosition('grammar_lesson');
+      if (widget.index >= current) {
+        ProgressService.saveLastPosition('grammar_lesson', widget.index + 1);
+      }
       return Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

@@ -22,7 +22,7 @@ class EnglishApp extends StatelessWidget {
         useMaterial3: true,
         appBarTheme: AppBarTheme(
           centerTitle: true,
-          backgroundColor: Colors.blue.shade700,
+          backgroundColor: Colors.blue.shade800,
           foregroundColor: Colors.white,
           elevation: 2,
         ),
@@ -33,7 +33,7 @@ class EnglishApp extends StatelessWidget {
         useMaterial3: true,
         appBarTheme: AppBarTheme(
           centerTitle: true,
-          backgroundColor: Colors.blue.shade700,
+          backgroundColor: Colors.blue.shade800,
           foregroundColor: Colors.white,
           elevation: 2,
         ),

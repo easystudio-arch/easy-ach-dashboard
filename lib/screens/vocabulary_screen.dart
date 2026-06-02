@@ -9,6 +9,8 @@ class VocabularyScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final lastDay = ProgressService.getLastPosition('vocab_day');
+    final scrollCtrl = ScrollController(initialScrollOffset: lastDay * 88.0);
     return Scaffold(
       appBar: AppBar(title: const Text('Vocabulary B2')),
       body: ListView(
@@ -20,17 +22,25 @@ class VocabularyScreen extends StatelessWidget {
           SizedBox(
             height: 80,
             child: ListView.builder(
+              controller: scrollCtrl,
               scrollDirection: Axis.horizontal,
               itemCount: VocabData.totalDays,
               itemBuilder: (context, i) => Padding(
                 padding: const EdgeInsets.only(right: 8),
                 child: ActionChip(
-                  avatar: CircleAvatar(child: Text('${i + 1}')),
-                  label: Text('Day ${i + 1}'),
-                  onPressed: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (_) => _FlashcardScreen(title: 'Day ${i + 1}', words: VocabData.getDailyWords(i + 1))),
+                  avatar: CircleAvatar(
+                    backgroundColor: i == lastDay ? Colors.blue : null,
+                    foregroundColor: i == lastDay ? Colors.white : null,
+                    child: Text('${i + 1}'),
                   ),
+                  label: Text('Day ${i + 1}'),
+                  onPressed: () {
+                    ProgressService.saveLastPosition('vocab_day', i);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => _FlashcardScreen(title: 'Day ${i + 1}', words: VocabData.getDailyWords(i + 1))),
+                    );
+                  },
                 ),
               ),
             ),
