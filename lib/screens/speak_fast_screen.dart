@@ -181,6 +181,7 @@ class _SpeakFastScreenState extends State<SpeakFastScreen> {
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(title: const Text('Speak Fast & Clear')),
       body: Column(
         children: [

@@ -18,9 +18,27 @@ class EnglishApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorSchemeSeed: Colors.blue,
+        brightness: Brightness.light,
         useMaterial3: true,
-        appBarTheme: const AppBarTheme(centerTitle: true),
+        appBarTheme: AppBarTheme(
+          centerTitle: true,
+          backgroundColor: Colors.blue.shade700,
+          foregroundColor: Colors.white,
+          elevation: 2,
+        ),
       ),
+      darkTheme: ThemeData(
+        colorSchemeSeed: Colors.blue,
+        brightness: Brightness.light,
+        useMaterial3: true,
+        appBarTheme: AppBarTheme(
+          centerTitle: true,
+          backgroundColor: Colors.blue.shade700,
+          foregroundColor: Colors.white,
+          elevation: 2,
+        ),
+      ),
+      themeMode: ThemeMode.light,
       home: const HomeScreen(),
     );
   }

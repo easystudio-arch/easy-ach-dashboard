@@ -46,7 +46,7 @@ flutter build web --base-href /english-course/ --release
 
 ```bash
 robocopy build\web docs /MIR
-git add docs
+git add .
 git commit -m "deploy web"
 git push
 ```
