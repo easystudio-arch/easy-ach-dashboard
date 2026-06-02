@@ -183,35 +183,48 @@ class _SpeakFastScreenState extends State<SpeakFastScreen> {
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.surface,
+      backgroundColor: const Color(0xFFF8FAFC),
       appBar: AppBar(title: const Text('Speak Fast & Clear')),
       body: Column(
         children: [
           // Theme selector
-          SizedBox(
-            height: 48,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              padding: const EdgeInsets.symmetric(horizontal: 12),
-              children: _content.keys.map((t) => Padding(
-                padding: const EdgeInsets.only(right: 8),
-                child: ChoiceChip(
-                  label: Text(t, style: TextStyle(fontSize: 12, color: _theme == t ? cs.onPrimary : null)),
-                  selected: _theme == t,
-                  selectedColor: cs.primary,
-                  onSelected: (_) { _stop(); setState(() { _theme = t; _currentLine = 0; }); ProgressService.saveLastString('speakfast_theme', t); ProgressService.saveLastPosition('speakfast_line', 0); },
-                ),
-              )).toList(),
+          Container(
+            padding: const EdgeInsets.symmetric(vertical: 12),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.05), blurRadius: 4, offset: const Offset(0, 2))],
+            ),
+            child: SizedBox(
+              height: 36,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                children: _content.keys.map((t) => Padding(
+                  padding: const EdgeInsets.only(right: 8),
+                  child: ChoiceChip(
+                    label: Text(t, style: TextStyle(fontSize: 12, fontWeight: _theme == t ? FontWeight.w600 : FontWeight.normal, color: _theme == t ? Colors.white : cs.onSurfaceVariant)),
+                    selected: _theme == t,
+                    selectedColor: const Color(0xFF1E293B),
+                    onSelected: (_) { _stop(); setState(() { _theme = t; _currentLine = 0; }); ProgressService.saveLastString('speakfast_theme', t); ProgressService.saveLastPosition('speakfast_line', 0); },
+                  ),
+                )).toList(),
+              ),
             ),
           ),
           // Speed control
-          Padding(
+          Container(
+            margin: const EdgeInsets.fromLTRB(16, 16, 16, 8),
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(color: Colors.grey.shade200),
+            ),
             child: Row(
               children: [
                 Icon(Icons.speed, color: cs.primary, size: 18),
                 const SizedBox(width: 8),
-                Text('${_speed.toStringAsFixed(1)}x', style: TextStyle(color: cs.primary, fontWeight: FontWeight.bold)),
+                Text('${_speed.toStringAsFixed(1)}x', style: TextStyle(color: cs.primary, fontWeight: FontWeight.bold, fontSize: 13)),
                 Expanded(
                   child: Slider(
                     value: _speed,
@@ -226,47 +239,71 @@ class _SpeakFastScreenState extends State<SpeakFastScreen> {
           ),
           // Running text area
           Expanded(
-            child: ListView.builder(
-              controller: _scrollCtrl,
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-              itemCount: _lines.length,
-              itemBuilder: (ctx, i) {
-                final isActive = i == _currentLine && _isPlaying;
-                final isPast = i < _currentLine;
-                return AnimatedContainer(
-                  duration: const Duration(milliseconds: 300),
-                  height: 56,
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    _lines[i],
-                    style: TextStyle(
-                      fontSize: isActive ? 20 : 16,
-                      fontWeight: isActive ? FontWeight.bold : FontWeight.normal,
-                      color: isActive ? cs.primary : isPast ? cs.onSurface.withValues(alpha: 0.4) : cs.onSurface,
-                    ),
-                  ),
-                );
-              },
+            child: Container(
+              margin: const EdgeInsets.fromLTRB(16, 8, 16, 0),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(color: Colors.grey.shade200),
+                boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.03), blurRadius: 8, offset: const Offset(0, 2))],
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(16),
+                child: ListView.builder(
+                  controller: _scrollCtrl,
+                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+                  itemCount: _lines.length,
+                  itemBuilder: (ctx, i) {
+                    final isActive = i == _currentLine && _isPlaying;
+                    final isPast = i < _currentLine;
+                    return AnimatedContainer(
+                      duration: const Duration(milliseconds: 300),
+                      height: 56,
+                      alignment: Alignment.centerLeft,
+                      padding: EdgeInsets.symmetric(horizontal: isActive ? 12 : 0, vertical: 4),
+                      decoration: BoxDecoration(
+                        color: isActive ? cs.primary.withValues(alpha: 0.08) : Colors.transparent,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Text(
+                        _lines[i],
+                        style: TextStyle(
+                          fontSize: isActive ? 18 : 15,
+                          height: 1.5,
+                          fontWeight: isActive ? FontWeight.w600 : FontWeight.normal,
+                          color: isActive ? cs.primary : isPast ? cs.onSurface.withValues(alpha: 0.35) : cs.onSurface.withValues(alpha: 0.85),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
             ),
           ),
           // Controls
           Container(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.05), blurRadius: 8, offset: const Offset(0, -2))],
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 IconButton(
-                  icon: Icon(Icons.restart_alt, color: cs.onSurfaceVariant, size: 32),
+                  icon: Icon(Icons.restart_alt, color: cs.onSurfaceVariant, size: 28),
                   onPressed: _reset,
                 ),
                 const SizedBox(width: 24),
                 FloatingActionButton(
+                  backgroundColor: const Color(0xFF1E293B),
+                  foregroundColor: Colors.white,
                   onPressed: _isPlaying ? _stop : _play,
                   child: Icon(_isPlaying ? Icons.pause : Icons.play_arrow),
                 ),
                 const SizedBox(width: 24),
                 IconButton(
-                  icon: Icon(Icons.skip_next, color: cs.onSurfaceVariant, size: 32),
+                  icon: Icon(Icons.skip_next, color: cs.onSurfaceVariant, size: 28),
                   onPressed: _currentLine < _lines.length - 1
                       ? () { _stop(); setState(() => _currentLine++); ProgressService.saveLastPosition('speakfast_line', _currentLine); _scrollToLine(_currentLine); }
                       : null,

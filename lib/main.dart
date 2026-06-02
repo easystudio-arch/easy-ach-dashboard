@@ -17,25 +17,27 @@ class EnglishApp extends StatelessWidget {
       title: 'EasyEnglish-B2',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorSchemeSeed: Colors.blue,
+        colorSchemeSeed: const Color(0xFF1E293B),
         brightness: Brightness.light,
         useMaterial3: true,
-        appBarTheme: AppBarTheme(
+        appBarTheme: const AppBarTheme(
           centerTitle: true,
-          backgroundColor: Colors.blue.shade800,
+          backgroundColor: Color(0xFF1E293B),
           foregroundColor: Colors.white,
-          elevation: 2,
+          elevation: 0,
+          scrolledUnderElevation: 2,
         ),
       ),
       darkTheme: ThemeData(
-        colorSchemeSeed: Colors.blue,
+        colorSchemeSeed: const Color(0xFF1E293B),
         brightness: Brightness.light,
         useMaterial3: true,
-        appBarTheme: AppBarTheme(
+        appBarTheme: const AppBarTheme(
           centerTitle: true,
-          backgroundColor: Colors.blue.shade800,
+          backgroundColor: Color(0xFF1E293B),
           foregroundColor: Colors.white,
-          elevation: 2,
+          elevation: 0,
+          scrolledUnderElevation: 2,
         ),
       ),
       themeMode: ThemeMode.light,
