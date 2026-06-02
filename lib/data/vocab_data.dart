@@ -18,7 +18,21 @@ class VocabData {
     'Food & Culture': foodWords,
   };
 
-  static List<VocabWord> get allWords => topics.values.expand((w) => w).toList();
+  static List<VocabWord> get allWords {
+    final lists = topics.values.toList();
+    final maxLen = lists.map((l) => l.length).reduce((a, b) => a > b ? a : b);
+    final result = <VocabWord>[];
+    final seen = <String>{};
+    for (int i = 0; i < maxLen; i++) {
+      for (final list in lists) {
+        if (i < list.length && !seen.contains(list[i].word)) {
+          seen.add(list[i].word);
+          result.add(list[i]);
+        }
+      }
+    }
+    return result;
+  }
 
   static List<VocabWord> getDailyWords(int day) {
     final all = allWords;

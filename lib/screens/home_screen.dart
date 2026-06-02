@@ -7,6 +7,8 @@ import '../screens/speaking_screen.dart';
 import '../screens/conversation_screen.dart';
 import '../screens/quiz_screen.dart';
 import '../screens/progress_screen.dart';
+import '../screens/speak_fast_screen.dart';
+import '../screens/translate_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -48,6 +50,8 @@ class HomeScreen extends StatelessWidget {
                   _ModuleCard(icon: Icons.record_voice_over, title: 'Speaking', subtitle: 'Berbicara - Karaoke', color: Colors.deepOrange, onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const SpeakingScreen()))),
                   _ModuleCard(icon: Icons.chat, title: 'Conversation', subtitle: 'Percakapan - Role Play', color: Colors.indigo, onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ConversationScreen()))),
                   _ModuleCard(icon: Icons.quiz, title: 'Quiz', subtitle: 'Kuis - 15 Soal', color: Colors.red, onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const QuizScreen()))),
+                  _ModuleCard(icon: Icons.speed, title: 'Speak Fast', subtitle: 'Bicara Cepat & Jelas', color: Colors.green, onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const SpeakFastScreen()))),
+                  _ModuleCard(icon: Icons.translate, title: 'Translate', subtitle: 'Terjemahkan ke Inggris', color: Colors.amber, onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const TranslateScreen()))),
                   _ModuleCard(icon: Icons.trending_up, title: 'Progress', subtitle: 'Kemajuan Belajar', color: Colors.teal, onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ProgressScreen()))),
                 ],
               ),
