@@ -15,6 +15,7 @@ class _SpeakFastScreenState extends State<SpeakFastScreen> {
   double _speed = 1.0;
   late int _currentLine = ProgressService.getLastPosition('speakfast_line');
   bool _isPlaying = false;
+  bool _soundOn = true;
   final ScrollController _scrollCtrl = ScrollController();
 
   static const Map<String, List<String>> _content = {
@@ -154,8 +155,12 @@ class _SpeakFastScreenState extends State<SpeakFastScreen> {
       setState(() => _currentLine = i);
       ProgressService.saveLastPosition('speakfast_line', i);
       _scrollToLine(i);
-      await _tts.speak(_lines[i]);
-      await _tts.awaitSpeakCompletion(true);
+      if (_soundOn) {
+        await _tts.speak(_lines[i]);
+        await _tts.awaitSpeakCompletion(true);
+      } else {
+        await Future.delayed(Duration(milliseconds: (2000 / _speed).round()));
+      }
       if (!_isPlaying) break;
     }
     if (mounted) setState(() => _isPlaying = false);
@@ -294,14 +299,19 @@ class _SpeakFastScreenState extends State<SpeakFastScreen> {
                   icon: Icon(Icons.restart_alt, color: cs.onSurfaceVariant, size: 28),
                   onPressed: _reset,
                 ),
-                const SizedBox(width: 24),
+                const SizedBox(width: 16),
+                IconButton(
+                  icon: Icon(_soundOn ? Icons.volume_up : Icons.volume_off, color: _soundOn ? cs.primary : Colors.grey, size: 28),
+                  onPressed: () { if (_soundOn) _tts.stop(); setState(() => _soundOn = !_soundOn); },
+                ),
+                const SizedBox(width: 16),
                 FloatingActionButton(
                   backgroundColor: const Color(0xFF1E293B),
                   foregroundColor: Colors.white,
                   onPressed: _isPlaying ? _stop : _play,
                   child: Icon(_isPlaying ? Icons.pause : Icons.play_arrow),
                 ),
-                const SizedBox(width: 24),
+                const SizedBox(width: 16),
                 IconButton(
                   icon: Icon(Icons.skip_next, color: cs.onSurfaceVariant, size: 28),
                   onPressed: _currentLine < _lines.length - 1

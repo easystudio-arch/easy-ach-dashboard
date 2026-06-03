@@ -162,7 +162,11 @@ class _TranslatePlayState extends State<_TranslatePlay> {
             if (_result != null)
               ElevatedButton.icon(onPressed: _next, icon: const Icon(Icons.arrow_forward), label: const Text('Next'), style: ElevatedButton.styleFrom(padding: const EdgeInsets.all(14)))
             else
-              ElevatedButton.icon(onPressed: _ctrl.text.isNotEmpty ? _check : null, icon: const Icon(Icons.check), label: const Text('Check Answer'), style: ElevatedButton.styleFrom(padding: const EdgeInsets.all(14))),
+              Row(children: [
+                Expanded(child: ElevatedButton.icon(onPressed: _ctrl.text.isNotEmpty ? _check : null, icon: const Icon(Icons.check), label: const Text('Check Answer'), style: ElevatedButton.styleFrom(padding: const EdgeInsets.all(14)))),
+                const SizedBox(width: 12),
+                ElevatedButton.icon(onPressed: _next, icon: const Icon(Icons.skip_next), label: const Text('Next'), style: ElevatedButton.styleFrom(padding: const EdgeInsets.all(14), backgroundColor: Colors.grey[300], foregroundColor: Colors.black87)),
+              ]),
           ],
         ),
       ),

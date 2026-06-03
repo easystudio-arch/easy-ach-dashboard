@@ -29,4 +29,24 @@ class ProgressService {
   static void saveLastPosition(String key, int value) => _prefs?.setInt('last_$key', value);
   static String getLastString(String key) => _prefs?.getString('last_$key') ?? '';
   static void saveLastString(String key, String value) => _prefs?.setString('last_$key', value);
+
+  // Streak tracking
+  static int get streak => _prefs?.getInt('streak') ?? 0;
+  static String get lastStudyDate => _prefs?.getString('last_study_date') ?? '';
+
+  static void recordStudyDay() {
+    final today = DateTime.now().toIso8601String().substring(0, 10);
+    if (lastStudyDate == today) return;
+    final yesterday = DateTime.now().subtract(const Duration(days: 1)).toIso8601String().substring(0, 10);
+    _prefs?.setInt('streak', lastStudyDate == yesterday ? streak + 1 : 1);
+    _prefs?.setString('last_study_date', today);
+  }
+
+  // Daily challenge checklist
+  static String get _todayKey => 'challenge_${DateTime.now().toIso8601String().substring(0, 10)}';
+  static List<String> get completedChallenges => _prefs?.getStringList(_todayKey) ?? [];
+  static void completeChallenge(String id) {
+    final list = completedChallenges;
+    if (!list.contains(id)) { list.add(id); _prefs?.setStringList(_todayKey, list); }
+  }
 }

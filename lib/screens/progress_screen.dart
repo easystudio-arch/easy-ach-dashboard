@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import '../services/progress_service.dart';
+import 'daily_boost_screen.dart';
 
 class ProgressScreen extends StatelessWidget {
   const ProgressScreen({super.key});
@@ -36,6 +37,16 @@ class ProgressScreen extends StatelessWidget {
             _StatTile(icon: Icons.article, label: 'Reading', value: '$reading / 3', color: Colors.orange),
             _StatTile(icon: Icons.headphones, label: 'Listening', value: '$listening / 5', color: Colors.purple),
             _StatTile(icon: Icons.quiz, label: 'Quiz Best', value: quizTotal > 0 ? '$quizBest / $quizTotal' : 'Not taken', color: Colors.red),
+            const SizedBox(height: 24),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton.icon(
+                onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const DailyBoostScreen())),
+                icon: const Icon(Icons.bolt),
+                label: const Text('Daily Boost - Motivasi Harian'),
+                style: ElevatedButton.styleFrom(padding: const EdgeInsets.all(14), backgroundColor: Colors.orange, foregroundColor: Colors.white),
+              ),
+            ),
           ],
         ),
       ),

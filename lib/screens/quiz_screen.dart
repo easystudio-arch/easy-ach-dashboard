@@ -17,9 +17,17 @@ class _QuizScreenState extends State<QuizScreen> {
   int _score = 0;
 
   @override
+  void initState() {
+    super.initState();
+    _index = ProgressService.getLastPosition('quiz');
+    if (_index >= _questions.length) _index = 0;
+  }
+
+  @override
   Widget build(BuildContext context) {
     if (_index >= _questions.length) {
       ProgressService.saveQuizScore(_score, _questions.length);
+      ProgressService.saveLastPosition('quiz', 0);
       return Scaffold(
         appBar: AppBar(title: const Text('Quiz Complete')),
         body: Center(
@@ -32,7 +40,7 @@ class _QuizScreenState extends State<QuizScreen> {
               const SizedBox(height: 8),
               Text(_score > _questions.length * 0.7 ? 'Excellent! B2 level achieved!' : 'Keep practicing!', style: const TextStyle(fontSize: 16)),
               const SizedBox(height: 24),
-              ElevatedButton(onPressed: () => setState(() { _index = 0; _score = 0; }), child: const Text('Retry')),
+              ElevatedButton(onPressed: () { ProgressService.saveLastPosition('quiz', 0); setState(() { _index = 0; _score = 0; }); }, child: const Text('Retry')),
               const SizedBox(height: 8),
               OutlinedButton(onPressed: () => Navigator.pop(context), child: const Text('Back')),
             ],
@@ -85,6 +93,7 @@ class _QuizScreenState extends State<QuizScreen> {
                     setState(() { _showResult = true; if (_selected == q.correctIndex) _score++; });
                   } else {
                     setState(() { _index++; _selected = null; _showResult = false; });
+                    ProgressService.saveLastPosition('quiz', _index);
                   }
                 },
                 child: Text(_showResult ? 'Next' : 'Check Answer'),

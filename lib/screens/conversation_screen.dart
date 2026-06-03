@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import '../services/progress_service.dart';
 
 class ConversationScreen extends StatefulWidget {
   const ConversationScreen({super.key});
@@ -64,6 +65,7 @@ class _ConversationScreenState extends State<ConversationScreen> {
   @override
   void initState() {
     super.initState();
+    _dialogIndex = ProgressService.getLastPosition('conversation');
     _tts.setLanguage('en-US');
     _tts.setSpeechRate(0.45);
     _tts.setCompletionHandler(() {
@@ -152,6 +154,7 @@ class _ConversationScreenState extends State<ConversationScreen> {
                     _tts.stop();
                     _timer?.cancel();
                     setState(() { _dialogIndex = i; _lineIndex = 0; _showUserLine = false; _highlightedWord = -1; });
+                    ProgressService.saveLastPosition('conversation', i);
                   },
                 ),
               ),

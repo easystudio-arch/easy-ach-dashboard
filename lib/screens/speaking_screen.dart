@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import '../data/content_provider.dart';
+import '../services/progress_service.dart';
 
 class SpeakingScreen extends StatefulWidget {
   const SpeakingScreen({super.key});
@@ -22,6 +23,7 @@ class _SpeakingScreenState extends State<SpeakingScreen> {
   @override
   void initState() {
     super.initState();
+    _currentIndex = ProgressService.getLastPosition('speaking');
     _tts.setLanguage('en-US');
     _tts.setSpeechRate(0.4);
     _tts.setCompletionHandler(() {
@@ -195,14 +197,14 @@ class _SpeakingScreenState extends State<SpeakingScreen> {
               children: [
                 TextButton.icon(
                   onPressed: _currentIndex > 0
-                      ? () { _stop(); setState(() { _currentIndex--; _loadWords(); _userTurn = false; }); }
+                      ? () { _stop(); setState(() { _currentIndex--; _loadWords(); _userTurn = false; }); ProgressService.saveLastPosition('speaking', _currentIndex); }
                       : null,
                   icon: const Icon(Icons.arrow_back),
                   label: const Text('Prev'),
                 ),
                 TextButton.icon(
                   onPressed: _currentIndex < texts.length - 1
-                      ? () { _stop(); setState(() { _currentIndex++; _loadWords(); _userTurn = false; }); }
+                      ? () { _stop(); setState(() { _currentIndex++; _loadWords(); _userTurn = false; }); ProgressService.saveLastPosition('speaking', _currentIndex); }
                       : null,
                   icon: const Icon(Icons.arrow_forward),
                   label: const Text('Next'),
