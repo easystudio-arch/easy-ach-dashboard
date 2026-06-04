@@ -107,8 +107,13 @@ class ContentProvider {
     ),
   ];
 
+  static const List<String> readingCategories = ['Technology', 'Environment', 'Business', 'Health', 'Education'];
+  static const List<String> speakingCategories = ['Daily Life', 'Business', 'Academic', 'Travel', 'Technology'];
+
   static const List<ReadingPassage> readingPassages = [
+    // --- Technology ---
     ReadingPassage(
+      category: 'Technology',
       title: 'The Future of Remote Work',
       text: '''The COVID-19 pandemic fundamentally transformed how we think about work. What was once considered a temporary measure has evolved into a permanent shift in workplace culture. Companies worldwide have discovered that remote work can be just as productive as traditional office-based work, if not more so.
 
@@ -127,6 +132,7 @@ Despite these concerns, the trend toward flexible work arrangements appears irre
       ],
     ),
     ReadingPassage(
+      category: 'Technology',
       title: 'Artificial Intelligence and Ethics',
       text: '''As artificial intelligence becomes increasingly integrated into our daily lives, questions about its ethical implications have moved from academic discussions to urgent policy debates. From facial recognition systems used by law enforcement to algorithms that determine creditworthiness, AI systems are making decisions that profoundly affect people's lives.
 
@@ -145,6 +151,27 @@ Proponents of AI regulation argue that without proper oversight, the technology 
       ],
     ),
     ReadingPassage(
+      category: 'Technology',
+      title: 'Cybersecurity in the Modern Age',
+      text: '''In an era where virtually every aspect of our lives has a digital component, cybersecurity has emerged as one of the most critical challenges facing individuals, organizations, and governments alike. The frequency and sophistication of cyberattacks continue to escalate, with ransomware, phishing, and data breaches making headlines almost daily.
+
+The shift to remote work has expanded the attack surface dramatically. Employees accessing corporate networks from home Wi-Fi connections, often on personal devices, have created vulnerabilities that cybercriminals are eager to exploit. A single compromised password can provide access to an entire organization's sensitive data.
+
+Artificial intelligence is proving to be a double-edged sword in cybersecurity. While AI-powered tools can detect anomalies and respond to threats faster than human analysts, the same technology enables attackers to craft more convincing phishing emails and develop malware that can evade traditional detection methods.
+
+The human factor remains the weakest link in any security chain. Studies consistently show that social engineering attacks—manipulating people into revealing confidential information—account for a significant majority of successful breaches. This underscores the importance of ongoing security awareness training for all employees.
+
+Governments worldwide are responding with stricter data protection regulations. The European Union's GDPR and similar legislation in other jurisdictions have imposed substantial penalties for organizations that fail to protect personal data adequately, creating a financial incentive for better security practices.''',
+      questions: [
+        QuizQuestion(question: 'What has expanded the attack surface according to the passage?', options: ['More powerful computers', 'The shift to remote work', 'Faster internet', 'Social media'], correctIndex: 1, explanation: 'The passage states "The shift to remote work has expanded the attack surface dramatically."'),
+        QuizQuestion(question: 'Why is AI described as a "double-edged sword" in cybersecurity?', options: ['It is expensive', 'It helps both defenders and attackers', 'It is unreliable', 'It replaces human workers'], correctIndex: 1, explanation: 'AI helps detect threats but also enables attackers to craft better attacks.'),
+        QuizQuestion(question: 'What is the weakest link in security?', options: ['Software', 'Hardware', 'The human factor', 'Networks'], correctIndex: 2, explanation: 'The passage states "The human factor remains the weakest link in any security chain."'),
+        QuizQuestion(question: 'The word "anomalies" means:', options: ['Normal patterns', 'Unusual deviations', 'Computer viruses', 'Security updates'], correctIndex: 1, explanation: '"Anomalies" refers to things that deviate from what is standard or expected.'),
+      ],
+    ),
+    // --- Environment ---
+    ReadingPassage(
+      category: 'Environment',
       title: 'Climate Change and Urban Planning',
       text: '''Cities around the world are grappling with the dual challenge of reducing their carbon footprint while simultaneously adapting to the effects of climate change that are already underway. Urban areas account for approximately 70% of global carbon emissions, making them both a major contributor to the problem and a crucial part of the solution.
 
@@ -160,6 +187,161 @@ The concept of the "15-minute city"—where all essential services are accessibl
         QuizQuestion(question: 'What is Copenhagen\'s carbon-neutral target year?', options: ['2020', '2025', '2030', '2050'], correctIndex: 1, explanation: 'The passage mentions "Copenhagen aims to become carbon-neutral by 2025."'),
         QuizQuestion(question: 'What does the "15-minute city" concept mean?', options: ['A city built in 15 minutes', 'All services accessible within 15-minute walk/bike', 'A city with 15-minute commutes by car', 'A city planning model taking 15 minutes to design'], correctIndex: 1, explanation: 'The passage defines it as where "all essential services are accessible within a 15-minute walk or bike ride."'),
         QuizQuestion(question: 'The word "grappling" in the first paragraph means:', options: ['Ignoring', 'Struggling to deal with', 'Celebrating', 'Measuring'], correctIndex: 1, explanation: '"Grappling" means struggling or wrestling with a difficult problem.'),
+      ],
+    ),
+    ReadingPassage(
+      category: 'Environment',
+      title: 'Ocean Plastic Pollution',
+      text: '''Every year, approximately eight million metric tons of plastic waste enters the world's oceans, creating an environmental crisis of staggering proportions. This plastic does not biodegrade; instead, it breaks down into smaller and smaller pieces called microplastics, which have now been found in every corner of the ocean, from the deepest trenches to Arctic ice.
+
+Marine life suffers enormously from this pollution. Sea turtles mistake plastic bags for jellyfish, seabirds feed plastic fragments to their chicks, and fish ingest microplastics that accumulate toxins. Scientists estimate that by 2050, there could be more plastic than fish in the ocean by weight if current trends continue.
+
+The problem is not limited to marine ecosystems. Microplastics have been detected in drinking water, food products, and even human blood. The long-term health implications of this pervasive contamination remain poorly understood, but preliminary research suggests potential links to inflammation and cellular damage.
+
+Several innovative solutions are being explored. The Ocean Cleanup project deploys massive floating barriers to collect surface plastic, while other initiatives focus on preventing plastic from reaching waterways in the first place. Biodegradable alternatives to conventional plastics are gaining market share, though they currently represent a tiny fraction of overall production.
+
+Ultimately, addressing ocean plastic pollution requires a fundamental rethinking of our relationship with disposable materials. Extended producer responsibility laws, deposit-return schemes, and outright bans on single-use plastics are gaining momentum globally as governments recognize that voluntary measures alone are insufficient.''',
+      questions: [
+        QuizQuestion(question: 'How much plastic enters the oceans annually?', options: ['Two million tons', 'Five million tons', 'Eight million tons', 'Twelve million tons'], correctIndex: 2, explanation: 'The passage states "approximately eight million metric tons of plastic waste enters the world\'s oceans."'),
+        QuizQuestion(question: 'What are microplastics?', options: ['A type of marine animal', 'Small broken-down plastic pieces', 'Biodegradable materials', 'A cleaning solution'], correctIndex: 1, explanation: 'Plastic "breaks down into smaller and smaller pieces called microplastics."'),
+        QuizQuestion(question: 'By 2050, what could happen according to the passage?', options: ['Oceans will be clean', 'More plastic than fish in the ocean', 'Plastic will biodegrade naturally', 'All marine life will adapt'], correctIndex: 1, explanation: 'Scientists estimate "there could be more plastic than fish in the ocean by weight."'),
+        QuizQuestion(question: 'The word "pervasive" is closest in meaning to:', options: ['Rare', 'Widespread', 'Temporary', 'Visible'], correctIndex: 1, explanation: '"Pervasive" means spreading widely throughout an area or group.'),
+      ],
+    ),
+    ReadingPassage(
+      category: 'Environment',
+      title: 'Renewable Energy Revolution',
+      text: '''The global energy landscape is undergoing a transformation that few predicted would happen so rapidly. Solar and wind power have become the cheapest sources of new electricity generation in most parts of the world, fundamentally altering the economics of energy production and challenging the dominance of fossil fuels.
+
+The cost of solar panels has fallen by more than 90% since 2010, making solar energy accessible even in developing nations. Similarly, advances in wind turbine technology have dramatically increased efficiency, with modern offshore turbines now capable of powering thousands of homes from a single installation.
+
+Battery storage technology represents the key to unlocking renewable energy's full potential. The intermittent nature of solar and wind—they only generate power when the sun shines or wind blows—has long been cited as their greatest limitation. However, rapidly improving battery technology is making it possible to store excess energy for use during peak demand periods.
+
+The transition is creating winners and losers. Communities dependent on coal mining face economic upheaval, while regions rich in renewable resources are experiencing investment booms. Managing this transition fairly—ensuring that displaced workers receive retraining and support—is essential for maintaining public support for climate action.
+
+Despite remarkable progress, challenges remain. Grid infrastructure in many countries was designed for centralized fossil fuel plants and needs significant upgrades to handle distributed renewable generation. Nevertheless, the direction of travel is clear: the age of fossil fuels is drawing to a close.''',
+      questions: [
+        QuizQuestion(question: 'By how much have solar panel costs fallen since 2010?', options: ['50%', '70%', '80%', 'More than 90%'], correctIndex: 3, explanation: 'The passage states costs have "fallen by more than 90% since 2010."'),
+        QuizQuestion(question: 'What is the key to unlocking renewable energy\'s full potential?', options: ['More solar panels', 'Battery storage technology', 'Government subsidies', 'Nuclear power'], correctIndex: 1, explanation: '"Battery storage technology represents the key to unlocking renewable energy\'s full potential."'),
+        QuizQuestion(question: 'What challenge does the energy transition create?', options: ['Higher energy costs', 'Economic upheaval for fossil fuel communities', 'Less reliable power', 'Increased pollution'], correctIndex: 1, explanation: '"Communities dependent on coal mining face economic upheaval."'),
+        QuizQuestion(question: 'The word "intermittent" means:', options: ['Constant', 'Occurring at irregular intervals', 'Powerful', 'Invisible'], correctIndex: 1, explanation: '"Intermittent" means not continuous; stopping and starting at intervals.'),
+      ],
+    ),
+    // --- Business ---
+    ReadingPassage(
+      category: 'Business',
+      title: 'The Gig Economy',
+      text: '''The rise of the gig economy represents one of the most significant shifts in labor markets since the Industrial Revolution. Platforms like Uber, Fiverr, and DoorDash have created a new class of worker—independent contractors who piece together income from multiple short-term engagements rather than relying on traditional full-time employment.
+
+Proponents argue that the gig economy offers unprecedented flexibility. Workers can choose when, where, and how much they work, allowing them to balance professional responsibilities with personal commitments. For many, this autonomy is liberating and represents a preferable alternative to the rigid structures of conventional employment.
+
+However, critics point to the precarious nature of gig work. Without access to benefits such as health insurance, paid leave, or retirement contributions, gig workers bear risks that were traditionally shared between employer and employee. The absence of a guaranteed minimum income means that earnings can fluctuate wildly based on demand, algorithm changes, or platform policy shifts.
+
+The legal classification of gig workers remains hotly contested. In many jurisdictions, companies classify them as independent contractors to avoid providing benefits and protections mandated for employees. Courts and legislatures around the world are grappling with whether existing labor laws adequately address this new employment paradigm.
+
+Some countries have begun creating intermediate categories—worker classifications that fall between full employment and independent contracting—to provide gig workers with some protections while preserving the flexibility that makes the model attractive. Whether this approach will prove sustainable remains to be seen.''',
+      questions: [
+        QuizQuestion(question: 'What do proponents say is the main advantage of gig work?', options: ['Higher pay', 'Unprecedented flexibility', 'Better benefits', 'Job security'], correctIndex: 1, explanation: 'Proponents argue it "offers unprecedented flexibility."'),
+        QuizQuestion(question: 'What do critics highlight as a key problem?', options: ['Too much free time', 'Lack of benefits and income security', 'Boring work', 'Too many regulations'], correctIndex: 1, explanation: 'Critics point to lack of health insurance, paid leave, retirement contributions, and guaranteed income.'),
+        QuizQuestion(question: 'Why do companies classify gig workers as independent contractors?', options: ['Workers prefer it', 'To avoid providing mandated benefits', 'It is legally required', 'For tax purposes only'], correctIndex: 1, explanation: 'Companies do this "to avoid providing benefits and protections mandated for employees."'),
+        QuizQuestion(question: 'The word "precarious" means:', options: ['Stable', 'Uncertain and risky', 'Profitable', 'Common'], correctIndex: 1, explanation: '"Precarious" means not securely held; dependent on chance or uncertain conditions.'),
+      ],
+    ),
+    ReadingPassage(
+      category: 'Business',
+      title: 'Corporate Social Responsibility',
+      text: '''Corporate social responsibility (CSR) has evolved from a peripheral concern to a central element of business strategy. Consumers, investors, and employees increasingly expect companies to demonstrate commitment to environmental sustainability, social justice, and ethical governance—not merely to maximize shareholder profits.
+
+Research consistently shows that companies with strong CSR programs enjoy tangible benefits. They attract and retain top talent more easily, as younger workers in particular seek employers whose values align with their own. Customer loyalty tends to be stronger when consumers believe a brand is making a genuine positive impact on society.
+
+However, the line between authentic CSR and "greenwashing"—superficial or misleading claims about environmental practices—has become a significant concern. Companies that make bold sustainability pledges without substantive action risk severe reputational damage when the gap between rhetoric and reality is exposed by journalists or activists.
+
+The concept of stakeholder capitalism suggests that businesses should serve not just shareholders but all stakeholders—employees, customers, communities, and the environment. This represents a fundamental challenge to the shareholder primacy doctrine that dominated corporate governance for decades.
+
+Measuring the impact of CSR initiatives remains challenging. While financial performance is easily quantified, assessing social and environmental outcomes requires more nuanced metrics. Frameworks such as ESG (Environmental, Social, and Governance) reporting are becoming standardized, but critics argue they remain too subjective and inconsistent to enable meaningful comparisons between companies.''',
+      questions: [
+        QuizQuestion(question: 'What is "greenwashing"?', options: ['Eco-friendly cleaning', 'Misleading environmental claims', 'Green building standards', 'Recycling programs'], correctIndex: 1, explanation: 'Greenwashing is defined as "superficial or misleading claims about environmental practices."'),
+        QuizQuestion(question: 'What does stakeholder capitalism propose?', options: ['Only shareholders matter', 'Businesses should serve all stakeholders', 'Government should own businesses', 'Profits are unimportant'], correctIndex: 1, explanation: 'It "suggests that businesses should serve not just shareholders but all stakeholders."'),
+        QuizQuestion(question: 'Why do companies with strong CSR attract talent?', options: ['They pay more', 'Workers seek value-aligned employers', 'They offer remote work', 'They have fewer rules'], correctIndex: 1, explanation: '"Younger workers in particular seek employers whose values align with their own."'),
+        QuizQuestion(question: 'The word "tangible" means:', options: ['Abstract', 'Clear and definite', 'Invisible', 'Temporary'], correctIndex: 1, explanation: '"Tangible" means perceptible by touch; clear and definite enough to be real.'),
+      ],
+    ),
+    // --- Health ---
+    ReadingPassage(
+      category: 'Health',
+      title: 'Mental Health in the Digital Age',
+      text: '''The relationship between technology use and mental health has become one of the most debated topics in contemporary psychology. While digital tools have made mental health resources more accessible than ever, there is growing evidence that excessive screen time and social media use may be contributing to rising rates of anxiety and depression, particularly among young people.
+
+Social media platforms are designed to maximize engagement through algorithms that prioritize emotionally provocative content. This creates an environment where users are constantly exposed to idealized portrayals of others' lives, potentially fostering feelings of inadequacy and social comparison. The dopamine-driven feedback loops of likes and comments can create patterns of use that resemble behavioral addiction.
+
+Paradoxically, technology also offers promising solutions. Teletherapy has dramatically expanded access to mental health services, particularly for those in rural areas or with mobility limitations. Mental health apps providing cognitive behavioral therapy techniques, meditation guidance, and mood tracking have been shown to offer meaningful benefits when used as supplements to professional care.
+
+The concept of "digital wellness" has emerged as a response to these concerns. Features like screen time limits, notification management, and grayscale modes aim to help users develop a healthier relationship with their devices. Some schools have implemented phone-free policies, reporting improvements in student attention and social interaction.
+
+Experts emphasize that technology itself is neither inherently harmful nor beneficial to mental health—what matters is how we use it. Developing digital literacy skills that include awareness of manipulation techniques and the ability to curate one's online environment thoughtfully may be as important as traditional media literacy in the twenty-first century.''',
+      questions: [
+        QuizQuestion(question: 'What do social media algorithms prioritize?', options: ['Educational content', 'Emotionally provocative content', 'Local news', 'User privacy'], correctIndex: 1, explanation: 'Algorithms "prioritize emotionally provocative content."'),
+        QuizQuestion(question: 'How has teletherapy helped mental health care?', options: ['Made it cheaper', 'Expanded access especially for rural areas', 'Replaced all in-person therapy', 'Eliminated waiting times'], correctIndex: 1, explanation: 'Teletherapy "has dramatically expanded access to mental health services, particularly for those in rural areas."'),
+        QuizQuestion(question: 'What do experts say about technology and mental health?', options: ['Technology is always harmful', 'Technology is always beneficial', 'It depends on how we use it', 'Only young people are affected'], correctIndex: 2, explanation: '"Technology itself is neither inherently harmful nor beneficial—what matters is how we use it."'),
+        QuizQuestion(question: 'The word "paradoxically" suggests:', options: ['Obviously', 'In a seemingly contradictory way', 'Unfortunately', 'Secretly'], correctIndex: 1, explanation: '"Paradoxically" means in a way that seems contradictory but may be true.'),
+      ],
+    ),
+    ReadingPassage(
+      category: 'Health',
+      title: 'The Science of Sleep',
+      text: '''Sleep science has undergone a revolution in recent decades, transforming our understanding of why we sleep and what happens when we don't get enough. Far from being a passive state, sleep is now recognized as an active process during which the brain performs essential maintenance functions, including memory consolidation, toxin removal, and emotional regulation.
+
+Adults require between seven and nine hours of sleep per night for optimal health, yet studies indicate that a third of adults in developed countries regularly fall short of this target. The consequences extend far beyond daytime drowsiness. Chronic sleep deprivation has been linked to increased risks of heart disease, diabetes, obesity, weakened immunity, and cognitive decline.
+
+The circadian rhythm—our internal biological clock—is regulated primarily by light exposure. The modern lifestyle, with its artificial lighting and screen use extending well into the evening, disrupts this natural cycle. Blue light emitted by phones and computers suppresses melatonin production, making it harder to fall asleep even when we feel tired.
+
+Sleep architecture—the pattern of different sleep stages throughout the night—plays a crucial role in overall sleep quality. Deep slow-wave sleep is essential for physical recovery, while REM sleep supports learning and emotional processing. Alcohol, caffeine, and irregular schedules can all disrupt healthy sleep architecture even when total sleep duration appears adequate.
+
+Cognitive behavioral therapy for insomnia (CBT-I) has emerged as the gold standard treatment, proving more effective than sleeping pills in the long term without the risks of dependency or side effects. This approach addresses the thoughts and behaviors that perpetuate poor sleep rather than simply masking symptoms with medication.''',
+      questions: [
+        QuizQuestion(question: 'How many hours of sleep do adults need per night?', options: ['5-6 hours', '6-7 hours', '7-9 hours', '10-12 hours'], correctIndex: 2, explanation: '"Adults require between seven and nine hours of sleep per night."'),
+        QuizQuestion(question: 'How does blue light affect sleep?', options: ['It promotes sleep', 'It suppresses melatonin production', 'It has no effect', 'It increases REM sleep'], correctIndex: 1, explanation: '"Blue light emitted by phones and computers suppresses melatonin production."'),
+        QuizQuestion(question: 'What is the gold standard treatment for insomnia?', options: ['Sleeping pills', 'Melatonin supplements', 'CBT-I', 'Exercise'], correctIndex: 2, explanation: '"Cognitive behavioral therapy for insomnia (CBT-I) has emerged as the gold standard treatment."'),
+        QuizQuestion(question: 'The word "consolidation" in context means:', options: ['Deletion', 'Strengthening and stabilizing', 'Creating new', 'Forgetting'], correctIndex: 1, explanation: '"Consolidation" means the process of making something stronger or more solid.'),
+      ],
+    ),
+    // --- Education ---
+    ReadingPassage(
+      category: 'Education',
+      title: 'The Future of Higher Education',
+      text: '''Traditional universities face unprecedented challenges as technology reshapes how knowledge is created, disseminated, and certified. The soaring cost of higher education, combined with the availability of high-quality online learning platforms, has prompted many to question whether the traditional four-year degree model remains the most effective path to career success.
+
+Massive Open Online Courses (MOOCs) and micro-credential programs offer targeted skills training at a fraction of the cost of traditional degrees. Companies like Google, IBM, and Apple have begun accepting alternative credentials for certain positions, signaling a potential shift in how employers evaluate candidates.
+
+However, defenders of traditional higher education argue that universities provide far more than vocational training. The development of critical thinking, exposure to diverse perspectives, and formation of lifelong networks are benefits that cannot be easily replicated in online settings. The university experience fosters personal growth and intellectual maturity in ways that purely skills-based training does not.
+
+The most likely outcome is not the replacement of universities but their transformation. Hybrid models combining online and in-person learning, competency-based progression rather than time-based semesters, and closer partnerships with industry are already emerging at forward-thinking institutions.
+
+Lifelong learning is becoming a necessity rather than a luxury. As automation and AI transform job markets, workers will need to continuously update their skills throughout their careers. This creates opportunities for universities to serve students well beyond the traditional 18-22 age bracket, offering modular programs that professionals can engage with at various career stages.''',
+      questions: [
+        QuizQuestion(question: 'What is challenging traditional universities?', options: ['Lack of students', 'High costs and online alternatives', 'Government regulations', 'Poor teaching quality'], correctIndex: 1, explanation: '"The soaring cost of higher education, combined with the availability of high-quality online learning platforms."'),
+        QuizQuestion(question: 'What do defenders of traditional education emphasize?', options: ['Lower costs', 'Critical thinking and personal growth', 'Online flexibility', 'Technical skills'], correctIndex: 1, explanation: 'They argue universities provide "critical thinking, exposure to diverse perspectives, and formation of lifelong networks."'),
+        QuizQuestion(question: 'Why is lifelong learning becoming necessary?', options: ['People live longer', 'Automation and AI transform job markets', 'Universities require it', 'It is cheaper'], correctIndex: 1, explanation: '"As automation and AI transform job markets, workers will need to continuously update their skills."'),
+        QuizQuestion(question: 'The word "disseminated" means:', options: ['Created', 'Spread widely', 'Hidden', 'Sold'], correctIndex: 1, explanation: '"Disseminated" means spread or dispersed widely.'),
+      ],
+    ),
+    ReadingPassage(
+      category: 'Education',
+      title: 'Multilingualism and Cognitive Benefits',
+      text: '''Research in neuroscience and psychology has revealed that speaking multiple languages confers significant cognitive advantages beyond the obvious practical benefits of cross-cultural communication. Bilingual and multilingual individuals consistently demonstrate superior executive function—the mental processes that enable planning, focus, and task-switching.
+
+The bilingual brain must constantly manage two or more language systems, suppressing one while activating another. This ongoing mental exercise strengthens the brain's executive control network, resulting in enhanced abilities in areas such as problem-solving, multitasking, and filtering irrelevant information. These benefits appear to persist even in tasks that have nothing to do with language.
+
+Perhaps most remarkably, research suggests that bilingualism may delay the onset of dementia by four to five years compared to monolingual individuals. The cognitive reserve built through years of managing multiple languages appears to provide a buffer against age-related cognitive decline, though the exact mechanisms remain under investigation.
+
+The critical period hypothesis suggests that language acquisition becomes significantly more difficult after puberty. However, recent research has challenged this view, demonstrating that adults can achieve high proficiency in new languages given sufficient motivation and appropriate learning methods. While pronunciation may be harder to perfect, grammatical competence and vocabulary can reach near-native levels at any age.
+
+Educational systems that support early bilingual instruction—such as immersion programs and dual-language schools—not only produce students who are proficient in two languages but also tend to outperform monolingual peers in standardized tests, suggesting that the cognitive benefits of bilingualism transfer to general academic performance.''',
+      questions: [
+        QuizQuestion(question: 'What cognitive advantage do multilingual people have?', options: ['Better memory only', 'Superior executive function', 'Faster reading', 'Higher IQ scores'], correctIndex: 1, explanation: 'They "consistently demonstrate superior executive function."'),
+        QuizQuestion(question: 'How much may bilingualism delay dementia?', options: ['1-2 years', '4-5 years', '10 years', 'It cannot delay dementia'], correctIndex: 1, explanation: '"Bilingualism may delay the onset of dementia by four to five years."'),
+        QuizQuestion(question: 'What does recent research say about adult language learning?', options: ['It is impossible', 'Adults can achieve high proficiency', 'Only pronunciation can be learned', 'It requires living abroad'], correctIndex: 1, explanation: '"Adults can achieve high proficiency in new languages given sufficient motivation."'),
+        QuizQuestion(question: 'The word "confers" means:', options: ['Removes', 'Grants or provides', 'Requires', 'Limits'], correctIndex: 1, explanation: '"Confers" means to grant or give a benefit or advantage.'),
       ],
     ),
   ];
@@ -182,11 +364,29 @@ The concept of the "15-minute city"—where all essential services are accessibl
     QuizQuestion(question: 'Under no circumstances ___ this information to anyone.', options: ['you should reveal', 'should you reveal', 'you reveal', 'reveal you'], correctIndex: 1, explanation: 'Inversion after "Under no circumstances" - auxiliary before subject.'),
   ];
 
-  static const List<String> listeningTexts = [
-    'The ability to communicate effectively in English has become increasingly important in today\'s globalized world. Whether you\'re conducting business negotiations, presenting research findings, or simply traveling abroad, proficiency in English opens doors to countless opportunities.',
-    'Climate change represents one of the most significant challenges facing humanity today. Scientists have reached a consensus that human activities, particularly the burning of fossil fuels, are the primary drivers of global warming. The consequences include rising sea levels, more frequent extreme weather events, and disruptions to ecosystems worldwide.',
-    'The digital revolution has transformed virtually every aspect of modern life. From how we communicate and consume information to how we work and entertain ourselves, technology has reshaped our daily routines in ways that would have been unimaginable just a few decades ago.',
-    'Education systems around the world are undergoing significant reforms as societies recognize the need to prepare students for a rapidly changing job market. Traditional models of rote learning are giving way to approaches that emphasize critical thinking, creativity, and collaboration.',
-    'The concept of sustainable development seeks to balance economic growth with environmental protection and social equity. It recognizes that the resources of our planet are finite and that current patterns of consumption cannot continue indefinitely without severe consequences for future generations.',
+  static const List<SpeakingText> speakingTexts = [
+    // --- Daily Life ---
+    SpeakingText(category: 'Daily Life', title: 'Morning Routine', text: 'The ability to communicate effectively in English has become increasingly important in today\'s globalized world. Whether you\'re conducting business negotiations, presenting research findings, or simply traveling abroad, proficiency in English opens doors to countless opportunities.'),
+    SpeakingText(category: 'Daily Life', title: 'Healthy Habits', text: 'Maintaining a balanced lifestyle requires conscious effort and daily discipline. Regular exercise, adequate sleep, and mindful eating are the foundations of physical well-being. Equally important is nurturing mental health through meditation, social connections, and engaging hobbies.'),
+    SpeakingText(category: 'Daily Life', title: 'Weekend Plans', text: 'Planning your weekends in advance can significantly improve your quality of life. Whether you prefer outdoor adventures, cultural experiences, or simply relaxing at home, having something to look forward to helps maintain motivation throughout the busy workweek.'),
+    // --- Business ---
+    SpeakingText(category: 'Business', title: 'Job Interview', text: 'Education systems around the world are undergoing significant reforms as societies recognize the need to prepare students for a rapidly changing job market. Traditional models of rote learning are giving way to approaches that emphasize critical thinking, creativity, and collaboration.'),
+    SpeakingText(category: 'Business', title: 'Team Meeting', text: 'Effective meetings require clear agendas, defined objectives, and active participation from all team members. The most productive teams establish ground rules that encourage open communication while respecting time constraints. Follow-up action items ensure accountability and progress.'),
+    SpeakingText(category: 'Business', title: 'Client Presentation', text: 'Delivering a compelling presentation requires thorough preparation and audience awareness. Structure your content with a clear introduction, supporting evidence, and a memorable conclusion. Engage your audience through storytelling, relevant data, and confident body language.'),
+    // --- Academic ---
+    SpeakingText(category: 'Academic', title: 'Research Discussion', text: 'The concept of sustainable development seeks to balance economic growth with environmental protection and social equity. It recognizes that the resources of our planet are finite and that current patterns of consumption cannot continue indefinitely without severe consequences for future generations.'),
+    SpeakingText(category: 'Academic', title: 'Lecture Summary', text: 'The digital revolution has transformed virtually every aspect of modern life. From how we communicate and consume information to how we work and entertain ourselves, technology has reshaped our daily routines in ways that would have been unimaginable just a few decades ago.'),
+    SpeakingText(category: 'Academic', title: 'Thesis Defense', text: 'Presenting academic research effectively requires clarity of argument and command of evidence. A successful thesis defense demonstrates not only deep knowledge of the subject matter but also awareness of its limitations and potential directions for future investigation.'),
+    // --- Travel ---
+    SpeakingText(category: 'Travel', title: 'At the Airport', text: 'Navigating international airports can be overwhelming for first-time travelers. Understanding the process from check-in through security screening to boarding helps reduce anxiety. Arriving early allows time for unexpected delays and provides opportunities to explore duty-free shops and airport lounges.'),
+    SpeakingText(category: 'Travel', title: 'Hotel Check-in', text: 'When checking into a hotel abroad, clear communication ensures a smooth experience. Confirm your reservation details, ask about available amenities, and inquire about local recommendations. Most hotel staff are happy to suggest restaurants, attractions, and transportation options.'),
+    SpeakingText(category: 'Travel', title: 'Asking Directions', text: 'Getting lost in a foreign city can be frustrating but also adventurous. Learning key phrases for asking directions politely shows respect for local culture. Always confirm your understanding by repeating the instructions back, and don\'t hesitate to ask multiple people if needed.'),
+    // --- Technology ---
+    SpeakingText(category: 'Technology', title: 'Tech Review', text: 'Climate change represents one of the most significant challenges facing humanity today. Scientists have reached a consensus that human activities, particularly the burning of fossil fuels, are the primary drivers of global warming. The consequences include rising sea levels, more frequent extreme weather events, and disruptions to ecosystems worldwide.'),
+    SpeakingText(category: 'Technology', title: 'App Development', text: 'Building a successful application requires understanding user needs and delivering intuitive experiences. The best developers combine technical expertise with empathy for end users. Iterative testing and feedback loops ensure the final product meets real-world requirements effectively.'),
+    SpeakingText(category: 'Technology', title: 'Future of AI', text: 'Artificial intelligence is transforming industries at an unprecedented pace. From healthcare diagnostics to autonomous vehicles, machine learning algorithms are solving problems that once seemed impossible. However, responsible development requires careful consideration of ethical implications and societal impact.'),
   ];
+
+  // Keep listeningTexts for backward compatibility with listening screen
+  static List<String> get listeningTexts => speakingTexts.map((s) => s.text).toList();
 }

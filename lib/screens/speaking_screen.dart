@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import '../data/content_provider.dart';
+import '../models/models.dart';
 import '../services/progress_service.dart';
 
 class SpeakingScreen extends StatefulWidget {
@@ -13,6 +14,7 @@ class SpeakingScreen extends StatefulWidget {
 
 class _SpeakingScreenState extends State<SpeakingScreen> {
   final FlutterTts _tts = FlutterTts();
+  String _selectedCategory = 'All';
   int _currentIndex = 0;
   int _highlightedWord = -1;
   bool _isPlaying = false;
@@ -20,19 +22,19 @@ class _SpeakingScreenState extends State<SpeakingScreen> {
   List<String> _words = [];
   Timer? _timer;
 
+  List<SpeakingText> get _filteredTexts {
+    if (_selectedCategory == 'All') return ContentProvider.speakingTexts;
+    return ContentProvider.speakingTexts.where((s) => s.category == _selectedCategory).toList();
+  }
+
   @override
   void initState() {
     super.initState();
-    _currentIndex = ProgressService.getLastPosition('speaking');
     _tts.setLanguage('en-US');
     _tts.setSpeechRate(0.4);
     _tts.setCompletionHandler(() {
       if (mounted) {
-        setState(() {
-          _isPlaying = false;
-          _highlightedWord = -1;
-          _userTurn = true;
-        });
+        setState(() { _isPlaying = false; _highlightedWord = -1; _userTurn = true; });
         _timer?.cancel();
       }
     });
@@ -40,7 +42,10 @@ class _SpeakingScreenState extends State<SpeakingScreen> {
   }
 
   void _loadWords() {
-    _words = ContentProvider.listeningTexts[_currentIndex].split(RegExp(r'\s+'));
+    final texts = _filteredTexts;
+    if (texts.isEmpty) { _words = []; return; }
+    if (_currentIndex >= texts.length) _currentIndex = 0;
+    _words = texts[_currentIndex].text.split(RegExp(r'\s+'));
   }
 
   @override
@@ -51,24 +56,16 @@ class _SpeakingScreenState extends State<SpeakingScreen> {
   }
 
   void _play() {
-    setState(() {
-      _isPlaying = true;
-      _userTurn = false;
-      _highlightedWord = 0;
-    });
-
-    final text = ContentProvider.listeningTexts[_currentIndex];
-    _tts.speak(text);
-
-    // Word highlight timer synced to speech rate (~320ms per word at 0.4 rate)
+    final texts = _filteredTexts;
+    if (texts.isEmpty) return;
+    setState(() { _isPlaying = true; _userTurn = false; _highlightedWord = 0; });
+    _tts.speak(texts[_currentIndex].text);
     _timer?.cancel();
     _timer = Timer.periodic(const Duration(milliseconds: 320), (t) {
       if (!mounted) { t.cancel(); return; }
       setState(() {
         _highlightedWord++;
-        if (_highlightedWord >= _words.length) {
-          t.cancel();
-        }
+        if (_highlightedWord >= _words.length) t.cancel();
       });
     });
   }
@@ -76,143 +73,167 @@ class _SpeakingScreenState extends State<SpeakingScreen> {
   void _stop() {
     _tts.stop();
     _timer?.cancel();
-    setState(() {
-      _isPlaying = false;
-      _highlightedWord = -1;
-    });
+    setState(() { _isPlaying = false; _highlightedWord = -1; });
+  }
+
+  void _onCategoryChange(String cat) {
+    _stop();
+    setState(() { _selectedCategory = cat; _currentIndex = 0; _userTurn = false; });
+    _loadWords();
   }
 
   @override
   Widget build(BuildContext context) {
-    final texts = ContentProvider.listeningTexts;
+    final texts = _filteredTexts;
+    final categories = ['All', ...ContentProvider.speakingCategories];
     return Scaffold(
-      appBar: AppBar(title: Text('Speaking (${_currentIndex + 1}/${texts.length})')),
-      body: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          children: [
-            LinearProgressIndicator(value: (_currentIndex + 1) / texts.length),
-            const SizedBox(height: 16),
-            Container(
+      appBar: AppBar(title: const Text('Speaking Practice')),
+      body: Column(
+        children: [
+          // Category chips
+          SizedBox(
+            height: 50,
+            child: ListView.separated(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-              decoration: BoxDecoration(
-                color: _userTurn ? Colors.green[50] : Colors.blue[50],
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Row(
-                children: [
-                  Icon(_userTurn ? Icons.mic : Icons.volume_up, color: _userTurn ? Colors.green : Colors.blue),
-                  const SizedBox(width: 8),
-                  Text(
-                    _userTurn ? '🎤 Your turn! Read aloud following the text' : '👂 Listen & follow the highlighted words',
-                    style: TextStyle(fontWeight: FontWeight.bold, color: _userTurn ? Colors.green[800] : Colors.blue[800]),
-                  ),
-                ],
-              ),
+              scrollDirection: Axis.horizontal,
+              itemCount: categories.length,
+              separatorBuilder: (_, __) => const SizedBox(width: 8),
+              itemBuilder: (context, i) {
+                final cat = categories[i];
+                return ChoiceChip(
+                  label: Text(cat),
+                  selected: cat == _selectedCategory,
+                  onSelected: (_) => _onCategoryChange(cat),
+                );
+              },
             ),
-            const SizedBox(height: 20),
-            // Karaoke text area
+          ),
+          if (texts.isEmpty)
+            const Expanded(child: Center(child: Text('No texts in this category')))
+          else
             Expanded(
-              child: Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  color: Colors.grey[900],
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: SingleChildScrollView(
-                  child: Wrap(
-                    spacing: 6,
-                    runSpacing: 10,
-                    children: List.generate(_words.length, (i) {
-                      final isHighlighted = i == _highlightedWord;
-                      final isPast = i < _highlightedWord;
-                      return AnimatedContainer(
-                        duration: const Duration(milliseconds: 200),
-                        padding: isHighlighted ? const EdgeInsets.symmetric(horizontal: 4, vertical: 2) : EdgeInsets.zero,
-                        decoration: isHighlighted
-                            ? BoxDecoration(color: Colors.amber, borderRadius: BorderRadius.circular(4))
-                            : null,
-                        child: Text(
-                          _words[i],
-                          style: TextStyle(
-                            fontSize: 20,
-                            height: 1.6,
-                            color: isHighlighted ? Colors.black : isPast ? Colors.white70 : Colors.white38,
-                            fontWeight: isHighlighted ? FontWeight.bold : FontWeight.normal,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  children: [
+                    // Title & progress
+                    Row(
+                      children: [
+                        Expanded(child: Text(texts[_currentIndex].title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold))),
+                        Text('${_currentIndex + 1}/${texts.length}', style: const TextStyle(color: Colors.grey)),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    LinearProgressIndicator(value: (_currentIndex + 1) / texts.length),
+                    const SizedBox(height: 12),
+                    // Status bar
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                      decoration: BoxDecoration(
+                        color: _userTurn ? Colors.green[50] : Colors.blue[50],
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Row(
+                        children: [
+                          Icon(_userTurn ? Icons.mic : Icons.volume_up, color: _userTurn ? Colors.green : Colors.blue, size: 18),
+                          const SizedBox(width: 8),
+                          Text(
+                            _userTurn ? '🎤 Your turn! Read aloud' : '👂 Listen & follow',
+                            style: TextStyle(fontWeight: FontWeight.bold, color: _userTurn ? Colors.green[800] : Colors.blue[800], fontSize: 13),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    // Karaoke text
+                    Expanded(
+                      child: Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.all(20),
+                        decoration: BoxDecoration(color: Colors.grey[900], borderRadius: BorderRadius.circular(16)),
+                        child: SingleChildScrollView(
+                          child: Wrap(
+                            spacing: 6,
+                            runSpacing: 10,
+                            children: List.generate(_words.length, (i) {
+                              final isHighlighted = i == _highlightedWord;
+                              final isPast = i < _highlightedWord;
+                              return AnimatedContainer(
+                                duration: const Duration(milliseconds: 200),
+                                padding: isHighlighted ? const EdgeInsets.symmetric(horizontal: 4, vertical: 2) : EdgeInsets.zero,
+                                decoration: isHighlighted ? BoxDecoration(color: Colors.amber, borderRadius: BorderRadius.circular(4)) : null,
+                                child: Text(
+                                  _words[i],
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    height: 1.6,
+                                    color: isHighlighted ? Colors.black : isPast ? Colors.white70 : Colors.white38,
+                                    fontWeight: isHighlighted ? FontWeight.bold : FontWeight.normal,
+                                  ),
+                                ),
+                              );
+                            }),
                           ),
                         ),
-                      );
-                    }),
-                  ),
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    // Controls
+                    Wrap(
+                      spacing: 8,
+                      alignment: WrapAlignment.center,
+                      children: [
+                        ElevatedButton.icon(
+                          onPressed: _isPlaying ? null : _play,
+                          icon: const Icon(Icons.play_arrow, size: 18),
+                          label: const Text('Listen'),
+                          style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
+                        ),
+                        ElevatedButton.icon(
+                          onPressed: _isPlaying ? _stop : null,
+                          icon: const Icon(Icons.stop, size: 18),
+                          label: const Text('Stop'),
+                        ),
+                        ElevatedButton.icon(
+                          onPressed: () {
+                            setState(() { _userTurn = true; _highlightedWord = 0; });
+                            _timer?.cancel();
+                            _timer = Timer.periodic(const Duration(milliseconds: 450), (t) {
+                              if (!mounted) { t.cancel(); return; }
+                              setState(() {
+                                _highlightedWord++;
+                                if (_highlightedWord >= _words.length) { t.cancel(); _highlightedWord = -1; }
+                              });
+                            });
+                          },
+                          icon: const Icon(Icons.mic, size: 18),
+                          label: const Text('Read Aloud'),
+                          style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    // Nav
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        TextButton.icon(
+                          onPressed: _currentIndex > 0 ? () { _stop(); setState(() { _currentIndex--; _userTurn = false; }); _loadWords(); } : null,
+                          icon: const Icon(Icons.arrow_back),
+                          label: const Text('Prev'),
+                        ),
+                        TextButton.icon(
+                          onPressed: _currentIndex < texts.length - 1 ? () { _stop(); setState(() { _currentIndex++; _userTurn = false; }); _loadWords(); } : null,
+                          icon: const Icon(Icons.arrow_forward),
+                          label: const Text('Next'),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
             ),
-            const SizedBox(height: 16),
-            // Controls
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ElevatedButton.icon(
-                  onPressed: _isPlaying ? null : _play,
-                  icon: const Icon(Icons.play_arrow),
-                  label: const Text('Listen First'),
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
-                ),
-                const SizedBox(width: 12),
-                ElevatedButton.icon(
-                  onPressed: _isPlaying ? _stop : null,
-                  icon: const Icon(Icons.stop),
-                  label: const Text('Stop'),
-                ),
-                const SizedBox(width: 12),
-                ElevatedButton.icon(
-                  onPressed: () {
-                    // Replay karaoke without TTS for user to read aloud
-                    setState(() {
-                      _userTurn = true;
-                      _highlightedWord = 0;
-                    });
-                    _timer?.cancel();
-                    _timer = Timer.periodic(const Duration(milliseconds: 450), (t) {
-                      if (!mounted) { t.cancel(); return; }
-                      setState(() {
-                        _highlightedWord++;
-                        if (_highlightedWord >= _words.length) {
-                          t.cancel();
-                          _highlightedWord = -1;
-                        }
-                      });
-                    });
-                  },
-                  icon: const Icon(Icons.mic),
-                  label: const Text('Read Aloud'),
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
-                ),
-              ],
-            ),
-            const SizedBox(height: 12),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                TextButton.icon(
-                  onPressed: _currentIndex > 0
-                      ? () { _stop(); setState(() { _currentIndex--; _loadWords(); _userTurn = false; }); ProgressService.saveLastPosition('speaking', _currentIndex); }
-                      : null,
-                  icon: const Icon(Icons.arrow_back),
-                  label: const Text('Prev'),
-                ),
-                TextButton.icon(
-                  onPressed: _currentIndex < texts.length - 1
-                      ? () { _stop(); setState(() { _currentIndex++; _loadWords(); _userTurn = false; }); ProgressService.saveLastPosition('speaking', _currentIndex); }
-                      : null,
-                  icon: const Icon(Icons.arrow_forward),
-                  label: const Text('Next'),
-                ),
-              ],
-            ),
-          ],
-        ),
+        ],
       ),
     );
   }

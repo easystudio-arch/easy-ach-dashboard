@@ -3,40 +3,70 @@ import '../data/content_provider.dart';
 import '../models/models.dart';
 import '../services/progress_service.dart';
 
-class ReadingScreen extends StatelessWidget {
+class ReadingScreen extends StatefulWidget {
   const ReadingScreen({super.key});
 
   @override
+  State<ReadingScreen> createState() => _ReadingScreenState();
+}
+
+class _ReadingScreenState extends State<ReadingScreen> {
+  String _selectedCategory = 'All';
+
+  List<ReadingPassage> get _filteredPassages {
+    if (_selectedCategory == 'All') return ContentProvider.readingPassages;
+    return ContentProvider.readingPassages.where((p) => p.category == _selectedCategory).toList();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final lastRead = ProgressService.getLastPosition('reading_passage');
+    final categories = ['All', ...ContentProvider.readingCategories];
     return Scaffold(
       appBar: AppBar(title: const Text('Reading Comprehension')),
-      body: ListView.builder(
-        padding: const EdgeInsets.all(16),
-        itemCount: ContentProvider.readingPassages.length,
-        itemBuilder: (context, index) {
-          final passage = ContentProvider.readingPassages[index];
-          final isDone = index < lastRead;
-          final isNext = index == lastRead;
-          return Card(
-            margin: const EdgeInsets.only(bottom: 12),
-            color: isNext ? Colors.orange.shade50 : null,
-            child: ListTile(
-              leading: CircleAvatar(
-                backgroundColor: isDone ? Colors.green : isNext ? Colors.orange : null,
-                foregroundColor: isDone || isNext ? Colors.white : null,
-                child: isDone ? const Icon(Icons.check, size: 18) : Text('${index + 1}'),
-              ),
-              title: Text(passage.title, style: const TextStyle(fontWeight: FontWeight.bold)),
-              subtitle: Text('${passage.questions.length} questions${isDone ? " ✓ Done" : isNext ? " ← Continue" : ""}'),
-              trailing: const Icon(Icons.arrow_forward_ios),
-              onTap: () {
-                ProgressService.saveLastPosition('reading_passage', index);
-                Navigator.push(context, MaterialPageRoute(builder: (_) => _ReadingDetailScreen(passage: passage, index: index)));
+      body: Column(
+        children: [
+          // Category chips
+          SizedBox(
+            height: 50,
+            child: ListView.separated(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              scrollDirection: Axis.horizontal,
+              itemCount: categories.length,
+              separatorBuilder: (_, __) => const SizedBox(width: 8),
+              itemBuilder: (context, i) {
+                final cat = categories[i];
+                final isSelected = cat == _selectedCategory;
+                return ChoiceChip(
+                  label: Text(cat),
+                  selected: isSelected,
+                  onSelected: (_) => setState(() => _selectedCategory = cat),
+                );
               },
             ),
-          );
-        },
+          ),
+          // Passage list
+          Expanded(
+            child: ListView.builder(
+              padding: const EdgeInsets.all(16),
+              itemCount: _filteredPassages.length,
+              itemBuilder: (context, index) {
+                final passage = _filteredPassages[index];
+                return Card(
+                  margin: const EdgeInsets.only(bottom: 12),
+                  child: ListTile(
+                    leading: CircleAvatar(child: Text('${index + 1}')),
+                    title: Text(passage.title, style: const TextStyle(fontWeight: FontWeight.bold)),
+                    subtitle: Text('${passage.category} · ${passage.questions.length} questions'),
+                    trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (_) => _ReadingDetailScreen(passage: passage, index: index)));
+                    },
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -72,6 +102,12 @@ class _ReadingDetailScreenState extends State<_ReadingDetailScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+            decoration: BoxDecoration(color: Colors.blue[100], borderRadius: BorderRadius.circular(12)),
+            child: Text(widget.passage.category, style: TextStyle(fontSize: 12, color: Colors.blue[800])),
+          ),
+          const SizedBox(height: 12),
           Text(widget.passage.text, style: const TextStyle(fontSize: 15, height: 1.7)),
           const SizedBox(height: 24),
           SizedBox(
@@ -90,10 +126,6 @@ class _ReadingDetailScreenState extends State<_ReadingDetailScreen> {
   Widget _buildQuiz() {
     if (_qIndex >= widget.passage.questions.length) {
       ProgressService.incrementReading();
-      final current = ProgressService.getLastPosition('reading_passage');
-      if (widget.index >= current) {
-        ProgressService.saveLastPosition('reading_passage', widget.index + 1);
-      }
       return Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -120,8 +152,8 @@ class _ReadingDetailScreenState extends State<_ReadingDetailScreen> {
           ...List.generate(q.options.length, (i) {
             Color? color;
             if (_showResult) {
-              if (i == q.correctIndex) { color = Colors.green[100]; }
-              else if (i == _selected) { color = Colors.red[100]; }
+              if (i == q.correctIndex) color = Colors.green[100];
+              else if (i == _selected) color = Colors.red[100];
             }
             return Card(
               color: color,
