@@ -10,6 +10,7 @@ void main() async {
     statusBarIconBrightness: Brightness.light,
   ));
   await ProgressService.init();
+  ProgressService.recordDailySnapshot();
   runApp(const EnglishApp());
 }
 

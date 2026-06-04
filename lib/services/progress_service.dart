@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ProgressService {
@@ -36,10 +37,11 @@ class ProgressService {
 
   static void recordStudyDay() {
     final today = DateTime.now().toIso8601String().substring(0, 10);
-    if (lastStudyDate == today) return;
+    if (lastStudyDate == today) { recordDailySnapshot(); return; }
     final yesterday = DateTime.now().subtract(const Duration(days: 1)).toIso8601String().substring(0, 10);
     _prefs?.setInt('streak', lastStudyDate == yesterday ? streak + 1 : 1);
     _prefs?.setString('last_study_date', today);
+    recordDailySnapshot();
   }
 
   // IELTS scores
@@ -64,5 +66,24 @@ class ProgressService {
   static void completeChallenge(String id) {
     final list = completedChallenges;
     if (!list.contains(id)) { list.add(id); _prefs?.setStringList(_todayKey, list); }
+  }
+
+  // Progress history tracking
+  static void recordDailySnapshot() {
+    final today = DateTime.now().toIso8601String().substring(0, 10);
+    final history = getProgressHistory();
+    if (history.isNotEmpty && history.last['date'] == today) {
+      history.last['total'] = vocabCompleted + grammarCompleted + readingCompleted + listeningCompleted;
+    } else {
+      history.add({'date': today, 'total': vocabCompleted + grammarCompleted + readingCompleted + listeningCompleted});
+    }
+    if (history.length > 30) history.removeRange(0, history.length - 30);
+    _prefs?.setString('progress_history', jsonEncode(history));
+  }
+
+  static List<Map<String, dynamic>> getProgressHistory() {
+    final raw = _prefs?.getString('progress_history');
+    if (raw == null) return [];
+    return List<Map<String, dynamic>>.from(jsonDecode(raw));
   }
 }

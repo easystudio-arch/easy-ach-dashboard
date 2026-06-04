@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import '../services/progress_service.dart';
 import 'daily_boost_screen.dart';
+import 'graphic_screen.dart';
 
 class ProgressScreen extends StatelessWidget {
   const ProgressScreen({super.key});
@@ -45,6 +46,16 @@ class ProgressScreen extends StatelessWidget {
                 icon: const Icon(Icons.bolt),
                 label: const Text('Daily Boost - Motivasi Harian'),
                 style: ElevatedButton.styleFrom(padding: const EdgeInsets.all(14), backgroundColor: Colors.orange, foregroundColor: Colors.white),
+              ),
+            ),
+            const SizedBox(height: 12),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton.icon(
+                onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const GraphicScreen())),
+                icon: const Icon(Icons.show_chart),
+                label: const Text('Progress Trend - Grafik Kemajuan'),
+                style: ElevatedButton.styleFrom(padding: const EdgeInsets.all(14), backgroundColor: Colors.teal, foregroundColor: Colors.white),
               ),
             ),
           ],
