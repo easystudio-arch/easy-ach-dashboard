@@ -42,6 +42,22 @@ class ProgressService {
     _prefs?.setString('last_study_date', today);
   }
 
+  // IELTS scores
+  static int get ieltsReadingCorrect => _prefs?.getInt('ielts_reading_correct') ?? 0;
+  static int get ieltsReadingTotal => _prefs?.getInt('ielts_reading_total') ?? 0;
+  static int get ieltsListeningCorrect => _prefs?.getInt('ielts_listening_correct') ?? 0;
+  static int get ieltsListeningTotal => _prefs?.getInt('ielts_listening_total') ?? 0;
+
+  static void saveIeltsReading(int correct, int total) {
+    _prefs?.setInt('ielts_reading_correct', ieltsReadingCorrect + correct);
+    _prefs?.setInt('ielts_reading_total', ieltsReadingTotal + total);
+  }
+
+  static void saveIeltsListening(int correct, int total) {
+    _prefs?.setInt('ielts_listening_correct', ieltsListeningCorrect + correct);
+    _prefs?.setInt('ielts_listening_total', ieltsListeningTotal + total);
+  }
+
   // Daily challenge checklist
   static String get _todayKey => 'challenge_${DateTime.now().toIso8601String().substring(0, 10)}';
   static List<String> get completedChallenges => _prefs?.getStringList(_todayKey) ?? [];

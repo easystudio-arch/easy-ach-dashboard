@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import '../data/ielts_data.dart';
 import '../models/models.dart';
+import '../services/progress_service.dart';
+import '../services/ielts_band_score.dart';
 
 class IeltsListeningScreen extends StatelessWidget {
   const IeltsListeningScreen({super.key});
@@ -47,6 +49,7 @@ class _ListeningDetailState extends State<_ListeningDetail> {
   int? _selected;
   bool _showResult = false;
   int _score = 0;
+  bool _saved = false;
 
   @override
   void initState() {
@@ -140,12 +143,17 @@ class _ListeningDetailState extends State<_ListeningDetail> {
   Widget _buildQuiz() {
     final questions = widget.section.questions;
     if (_qi >= questions.length) {
+      if (!_saved) { _saved = true; ProgressService.saveIeltsListening(_score, questions.length); }
+      final band = IeltsBandScore.estimateBand(_score, questions.length);
       return Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(_score >= questions.length * 0.7 ? Icons.emoji_events : Icons.check_circle, size: 64, color: _score >= questions.length * 0.7 ? Colors.amber : Colors.green),
             Text('$_score/${questions.length}', style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold)),
+            const SizedBox(height: 8),
+            Text('Estimated Band: ${band.toStringAsFixed(1)}', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: band >= 7 ? Colors.green : Colors.orange)),
+            Text(IeltsBandScore.bandLabel(band), style: const TextStyle(fontSize: 14, color: Colors.grey)),
             const SizedBox(height: 16),
             ElevatedButton(onPressed: () => Navigator.pop(context), child: const Text('Back')),
           ],

@@ -3,12 +3,19 @@ import 'ielts_reading_screen.dart';
 import 'ielts_listening_screen.dart';
 import 'ielts_writing_screen.dart';
 import 'ielts_speaking_screen.dart';
+import '../services/progress_service.dart';
+import '../services/ielts_band_score.dart';
 
 class IeltsScreen extends StatelessWidget {
   const IeltsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final rBand = IeltsBandScore.estimateBand(ProgressService.ieltsReadingCorrect, ProgressService.ieltsReadingTotal);
+    final lBand = IeltsBandScore.estimateBand(ProgressService.ieltsListeningCorrect, ProgressService.ieltsListeningTotal);
+    final bands = [if (rBand > 0) rBand, if (lBand > 0) lBand];
+    final overall = IeltsBandScore.overallBand(bands);
+
     return Scaffold(
       appBar: AppBar(title: const Text('IELTS Preparation')),
       body: SingleChildScrollView(
@@ -16,7 +23,7 @@ class IeltsScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Target band score banner
+            // Score banner
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(16),
@@ -24,11 +31,26 @@ class IeltsScreen extends StatelessWidget {
                 gradient: LinearGradient(colors: [Colors.indigo, Colors.blue.shade700]),
                 borderRadius: BorderRadius.circular(16),
               ),
-              child: const Column(
+              child: Column(
                 children: [
-                  Text('🎯 Target: Band 7.0+', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white)),
-                  SizedBox(height: 4),
-                  Text('Practice all 4 skills consistently', style: TextStyle(color: Colors.white70)),
+                  if (overall > 0) ...[
+                    Text('📊 Your Estimated Band', style: TextStyle(fontSize: 14, color: Colors.white70)),
+                    const SizedBox(height: 4),
+                    Text(overall.toStringAsFixed(1), style: const TextStyle(fontSize: 36, fontWeight: FontWeight.bold, color: Colors.white)),
+                    Text(IeltsBandScore.bandLabel(overall), style: const TextStyle(color: Colors.white70)),
+                    const SizedBox(height: 8),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        if (lBand > 0) _BandChip('L', lBand),
+                        if (rBand > 0) _BandChip('R', rBand),
+                      ],
+                    ),
+                  ] else ...[
+                    const Text('🎯 Target: Band 7.0+', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white)),
+                    const SizedBox(height: 4),
+                    const Text('Complete tasks to see your score', style: TextStyle(color: Colors.white70)),
+                  ],
                 ],
               ),
             ),
@@ -84,6 +106,22 @@ class _SkillCard extends StatelessWidget {
         trailing: const Icon(Icons.arrow_forward_ios, size: 16),
         onTap: onTap,
       ),
+    );
+  }
+}
+
+class _BandChip extends StatelessWidget {
+  final String label;
+  final double band;
+  const _BandChip(this.label, this.band);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 6),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+      decoration: BoxDecoration(color: Colors.white24, borderRadius: BorderRadius.circular(12)),
+      child: Text('$label: ${band.toStringAsFixed(1)}', style: const TextStyle(color: Colors.white, fontSize: 13)),
     );
   }
 }
