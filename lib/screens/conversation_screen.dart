@@ -68,6 +68,7 @@ class _ConversationScreenState extends State<ConversationScreen> {
     _dialogIndex = ProgressService.getLastPosition('conversation');
     _tts.setLanguage('en-US');
     _tts.setSpeechRate(0.45);
+    _tts.awaitSpeakCompletion(true);
     _tts.setCompletionHandler(() {
       if (mounted) {
         setState(() => _isSpeaking = false);

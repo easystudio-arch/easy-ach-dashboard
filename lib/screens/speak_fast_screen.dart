@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import '../services/progress_service.dart';
@@ -137,6 +138,7 @@ class _SpeakFastScreenState extends State<SpeakFastScreen> {
   void initState() {
     super.initState();
     _tts.setLanguage('en-US');
+    _tts.awaitSpeakCompletion(true);
   }
 
   @override
@@ -157,7 +159,6 @@ class _SpeakFastScreenState extends State<SpeakFastScreen> {
       _scrollToLine(i);
       if (_soundOn) {
         await _tts.speak(_lines[i]);
-        await _tts.awaitSpeakCompletion(true);
       } else {
         await Future.delayed(Duration(milliseconds: (2000 / _speed).round()));
       }

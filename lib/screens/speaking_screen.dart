@@ -32,6 +32,7 @@ class _SpeakingScreenState extends State<SpeakingScreen> {
     super.initState();
     _tts.setLanguage('en-US');
     _tts.setSpeechRate(0.4);
+    _tts.awaitSpeakCompletion(true);
     _tts.setCompletionHandler(() {
       if (mounted) {
         setState(() { _isPlaying = false; _highlightedWord = -1; _userTurn = true; });

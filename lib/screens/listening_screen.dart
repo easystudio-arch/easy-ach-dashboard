@@ -21,6 +21,7 @@ class _ListeningScreenState extends State<ListeningScreen> {
     super.initState();
     _tts.setLanguage('en-US');
     _tts.setSpeechRate(0.45);
+    _tts.awaitSpeakCompletion(true);
     _tts.setCompletionHandler(() => setState(() => _isPlaying = false));
   }
 
