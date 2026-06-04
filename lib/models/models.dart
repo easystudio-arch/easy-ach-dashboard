@@ -86,8 +86,9 @@ class IeltsListeningSection {
   final String audioText; // text for TTS
   final String context; // description of scenario
   final List<IeltsQuestion> questions;
+  final Map<String, String> keyVocabulary; // word -> meaning in Indonesian
 
-  const IeltsListeningSection({required this.title, required this.audioText, required this.context, required this.questions});
+  const IeltsListeningSection({required this.title, required this.audioText, required this.context, required this.questions, this.keyVocabulary = const {}});
 }
 
 class IeltsWritingTask {

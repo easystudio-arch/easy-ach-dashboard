@@ -67,7 +67,7 @@ class _ListeningDetailState extends State<_ListeningDetail> {
     if (_showQuiz) return Scaffold(appBar: AppBar(title: const Text('Questions')), body: _buildQuiz());
     return Scaffold(
       appBar: AppBar(title: Text(widget.section.title)),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
         child: Column(
           children: [
@@ -78,13 +78,38 @@ class _ListeningDetailState extends State<_ListeningDetail> {
               decoration: BoxDecoration(color: Colors.purple.shade50, borderRadius: BorderRadius.circular(8)),
               child: Text('📋 ${widget.section.context}', style: const TextStyle(fontSize: 14)),
             ),
-            const SizedBox(height: 20),
-            // Instructions
-            const Text('Listen to the audio carefully. You can play it TWICE maximum (like the real test).', style: TextStyle(color: Colors.grey)),
+            const SizedBox(height: 16),
+            // Key Vocabulary
+            if (widget.section.keyVocabulary.isNotEmpty)
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(color: Colors.amber.shade50, borderRadius: BorderRadius.circular(8), border: Border.all(color: Colors.amber.shade200)),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text('📚 Pelajari dulu kata-kata ini:', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+                    const SizedBox(height: 8),
+                    ...widget.section.keyVocabulary.entries.map((e) => Padding(
+                      padding: const EdgeInsets.only(bottom: 4),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('• ${e.key}', style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 13)),
+                          const Text(' — ', style: TextStyle(fontSize: 13)),
+                          Expanded(child: Text(e.value, style: const TextStyle(fontSize: 13, color: Colors.grey))),
+                        ],
+                      ),
+                    )),
+                  ],
+                ),
+              ),
             const SizedBox(height: 20),
             // Play button
             Icon(_isPlaying ? Icons.graphic_eq : Icons.headphones, size: 80, color: Colors.purple),
-            const SizedBox(height: 20),
+            const SizedBox(height: 16),
+            const Text('Dengarkan audio, lalu jawab pertanyaan', style: TextStyle(color: Colors.grey, fontSize: 13)),
+            const SizedBox(height: 16),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -98,11 +123,11 @@ class _ListeningDetailState extends State<_ListeningDetail> {
                 if (_isPlaying) ElevatedButton.icon(onPressed: _stop, icon: const Icon(Icons.stop), label: const Text('Stop')),
               ],
             ),
-            const Spacer(),
+            const SizedBox(height: 24),
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: _hasListened ? () => setState(() => _showQuiz = true) : null,
+                onPressed: () => setState(() => _showQuiz = true),
                 child: const Text('Answer Questions'),
               ),
             ),

@@ -73,6 +73,15 @@ International cooperation on shared water resources remains inadequate. Transbou
     IeltsListeningSection(
       title: 'Section 1: University Accommodation',
       context: 'A conversation between a student and an accommodation officer about housing options.',
+      keyVocabulary: {
+        'accommodation': 'tempat tinggal',
+        'hall of residence': 'asrama kampus',
+        'en-suite bathroom': 'kamar mandi dalam (pribadi)',
+        'shared apartments': 'apartemen berbagi',
+        'homestay': 'tinggal di rumah keluarga lokal',
+        'settle in': 'menyesuaikan diri',
+        'semester': 'semester',
+      },
       audioText: '''Good morning, how can I help you today? Hi, I'm looking for accommodation for next semester. I'm a second-year student studying engineering. Of course. We have several options available. First, there's the new hall of residence on campus called Parkview. It's a single room with an en-suite bathroom, and includes all meals. The cost is eight hundred and fifty pounds per month. Alternatively, we have shared apartments off campus on Bridge Street. You'd share with three other students. Each person has their own bedroom, but the kitchen and bathroom are shared. That's five hundred and twenty pounds per month, and you arrange your own meals. There's also a homestay option where you live with a local family. That includes breakfast and dinner, and it's six hundred and seventy-five pounds per month. When would I need to move in? The semester starts on the fifteenth of September, but you can move in from the tenth. I'd recommend the earlier date so you can settle in before classes begin.''',
       questions: [
         IeltsQuestion(question: 'What subject is the student studying?', type: 'multiple_choice', options: ['Medicine', 'Engineering', 'Business', 'Architecture'], correctIndex: 1, explanation: 'The student says "I\'m a second-year student studying engineering."'),
@@ -84,6 +93,15 @@ International cooperation on shared water resources remains inadequate. Transbou
     IeltsListeningSection(
       title: 'Section 2: Museum Tour',
       context: 'A guide giving information about a museum to a group of visitors.',
+      keyVocabulary: {
+        'geology': 'geologi / ilmu batuan',
+        'natural history': 'sejarah alam',
+        'astronomy': 'astronomi / ilmu bintang',
+        'interactive exhibits': 'pameran interaktif',
+        'temporary exhibitions': 'pameran sementara',
+        'photography is permitted': 'fotografi diizinkan',
+        'approximately': 'kira-kira / sekitar',
+      },
       audioText: '''Welcome to the National Science Museum. Before we begin our tour, let me give you some practical information. The museum has four floors. We're currently on the ground floor, which houses the geology and natural history collections. The first floor is dedicated entirely to space exploration and astronomy. On the second floor, you'll find our interactive technology exhibits, which are particularly popular with younger visitors. The third floor contains temporary exhibitions, and this month we're featuring an exhibition on climate change which runs until the twenty-third of March. Photography is permitted in all areas except the temporary exhibition hall. The museum café is located on the ground floor near the east entrance. It serves hot meals until two thirty, and sandwiches and drinks until closing time at five thirty. If you have any questions during the tour, please don't hesitate to ask. Our tour will last approximately ninety minutes.''',
       questions: [
         IeltsQuestion(question: 'What is on the first floor?', type: 'multiple_choice', options: ['Natural history', 'Space exploration', 'Technology exhibits', 'Temporary exhibitions'], correctIndex: 1, explanation: '"The first floor is dedicated entirely to space exploration and astronomy."'),
@@ -95,6 +113,17 @@ International cooperation on shared water resources remains inadequate. Transbou
     IeltsListeningSection(
       title: 'Section 3: Research Project Discussion',
       context: 'Two university students discussing their research project on social media usage.',
+      keyVocabulary: {
+        'survey data': 'data survei',
+        'respondents': 'responden / peserta survei',
+        'age distribution': 'distribusi usia',
+        'preliminary': 'awal / pendahuluan',
+        'correlation': 'korelasi / hubungan',
+        'methodology': 'metodologi / cara penelitian',
+        'qualitative coding': 'pengkodean kualitatif',
+        'thematic analysis': 'analisis tematik',
+        'deadline': 'tenggat waktu',
+      },
       audioText: '''So, how's the research going, Sarah? Well, I've finished collecting the survey data. We got responses from two hundred and forty-three participants, which is above our target of two hundred. That's great. What about the age distribution? Most respondents were between eighteen and twenty-five, which makes sense given we distributed it through the university. But we also got about thirty percent from the twenty-six to thirty-five age group through online forums. Interesting. Have you started the analysis yet? I've done some preliminary work. The most striking finding so far is that seventy-eight percent of respondents check social media within fifteen minutes of waking up. And there seems to be a strong correlation between heavy social media use and reported anxiety levels. That aligns with previous research. What methodology should we use for the full analysis? I think we should use a mixed methods approach. Quantitative analysis for the survey data, then qualitative coding for the open-ended responses. We could use thematic analysis for that. Agreed. When is the deadline for the first draft? Professor Williams wants it by the fourteenth of November. That gives us about three weeks.''',
       questions: [
         IeltsQuestion(question: 'How many survey responses did they receive?', type: 'multiple_choice', options: ['200', '230', '243', '250'], correctIndex: 2, explanation: '"We got responses from two hundred and forty-three participants."'),
