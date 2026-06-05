@@ -10,6 +10,7 @@ import '../screens/progress_screen.dart';
 import '../screens/speak_fast_screen.dart';
 import '../screens/translate_screen.dart';
 import '../screens/ielts_screen.dart';
+import '../screens/tongue_practice_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -54,6 +55,7 @@ class HomeScreen extends StatelessWidget {
                   _ModuleCard(icon: Icons.speed, title: 'Speak Fast', subtitle: 'Bicara Cepat & Jelas', color: Colors.green, onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const SpeakFastScreen()))),
                   _ModuleCard(icon: Icons.translate, title: 'Translate', subtitle: 'Terjemahkan ke Inggris', color: Colors.amber, onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const TranslateScreen()))),
                   _ModuleCard(icon: Icons.school, title: 'IELTS Prep', subtitle: 'Target Band 7+', color: Colors.indigo, onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const IeltsScreen()))),
+                  _ModuleCard(icon: Icons.mic_external_on, title: 'Tongue Practice', subtitle: 'Latihan Lidah - Twister', color: Colors.pink, onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const TonguePracticeScreen()))),
                   _ModuleCard(icon: Icons.trending_up, title: 'Progress', subtitle: 'Kemajuan Belajar', color: Colors.teal, onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ProgressScreen()))),
                 ],
               ),

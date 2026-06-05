@@ -7,7 +7,7 @@ import 'services/tts_service.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    statusBarColor: Color(0xFF2196F3),
+    statusBarColor: Colors.transparent,
     statusBarIconBrightness: Brightness.light,
   ));
   await ProgressService.init();
@@ -34,6 +34,13 @@ class EnglishApp extends StatelessWidget {
           foregroundColor: Colors.white,
           elevation: 0,
           scrolledUnderElevation: 2,
+          titleSpacing: 0,
+          titleTextStyle: TextStyle(
+            color: Colors.white,
+            fontSize: 18,
+            fontWeight: FontWeight.w500,
+            overflow: TextOverflow.ellipsis,
+          ),
         ),
       ),
       themeMode: ThemeMode.light,
