@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_tts/flutter_tts.dart';
 import '../data/content_provider.dart';
 import '../services/progress_service.dart';
+import '../services/tts_service.dart';
 
 class ListeningScreen extends StatefulWidget {
   const ListeningScreen({super.key});
@@ -11,15 +11,15 @@ class ListeningScreen extends StatefulWidget {
 }
 
 class _ListeningScreenState extends State<ListeningScreen> {
-  final FlutterTts _tts = FlutterTts();
+  final _tts = TtsService.instance;
   late int _currentIndex = ProgressService.getLastPosition('listening');
   bool _showText = false;
   bool _isPlaying = false;
+  String _accent = TtsService.currentAccent;
 
   @override
   void initState() {
     super.initState();
-    _tts.setLanguage('en-US');
     _tts.setSpeechRate(0.45);
     _tts.awaitSpeakCompletion(true);
     _tts.setCompletionHandler(() => setState(() => _isPlaying = false));
@@ -35,7 +35,18 @@ class _ListeningScreenState extends State<ListeningScreen> {
   Widget build(BuildContext context) {
     final texts = ContentProvider.listeningTexts;
     return Scaffold(
-      appBar: AppBar(title: Text('Listening (${_currentIndex + 1}/${texts.length})')),
+      appBar: AppBar(
+        title: Text('Listening (${_currentIndex + 1}/${texts.length})'),
+        actions: [
+          DropdownButton<String>(
+            value: _accent,
+            underline: const SizedBox(),
+            items: TtsService.accents.keys.map((a) => DropdownMenuItem(value: a, child: Text(a, style: const TextStyle(fontSize: 13)))).toList(),
+            onChanged: (v) { TtsService.setAccent(v!); setState(() => _accent = v); },
+          ),
+          const SizedBox(width: 8),
+        ],
+      ),
       body: Padding(
         padding: const EdgeInsets.all(24),
         child: Column(

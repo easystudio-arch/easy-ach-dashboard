@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_tts/flutter_tts.dart';
 import '../services/progress_service.dart';
+import '../services/tts_service.dart';
 
 class SpeakFastScreen extends StatefulWidget {
   const SpeakFastScreen({super.key});
@@ -11,12 +11,13 @@ class SpeakFastScreen extends StatefulWidget {
 }
 
 class _SpeakFastScreenState extends State<SpeakFastScreen> {
-  final FlutterTts _tts = FlutterTts();
+  final _tts = TtsService.instance;
   late String _theme = ProgressService.getLastString('speakfast_theme').isEmpty ? 'Casual' : ProgressService.getLastString('speakfast_theme');
   double _speed = 1.0;
   late int _currentLine = ProgressService.getLastPosition('speakfast_line');
   bool _isPlaying = false;
   bool _soundOn = true;
+  String _accent = TtsService.currentAccent;
   final ScrollController _scrollCtrl = ScrollController();
 
   static const Map<String, List<String>> _content = {
@@ -137,7 +138,6 @@ class _SpeakFastScreenState extends State<SpeakFastScreen> {
   @override
   void initState() {
     super.initState();
-    _tts.setLanguage('en-US');
     _tts.awaitSpeakCompletion(true);
   }
 
@@ -190,7 +190,18 @@ class _SpeakFastScreenState extends State<SpeakFastScreen> {
     final cs = Theme.of(context).colorScheme;
     return Scaffold(
       backgroundColor: const Color(0xFFF8FAFC),
-      appBar: AppBar(title: const Text('Speak Fast & Clear')),
+      appBar: AppBar(
+        title: const Text('Speak Fast & Clear'),
+        actions: [
+          DropdownButton<String>(
+            value: _accent,
+            underline: const SizedBox(),
+            items: TtsService.accents.keys.map((a) => DropdownMenuItem(value: a, child: Text(a, style: const TextStyle(fontSize: 13)))).toList(),
+            onChanged: (v) { TtsService.setAccent(v!); setState(() => _accent = v); },
+          ),
+          const SizedBox(width: 8),
+        ],
+      ),
       body: Column(
         children: [
           // Theme selector

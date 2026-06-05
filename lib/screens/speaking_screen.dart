@@ -1,9 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_tts/flutter_tts.dart';
 import '../data/content_provider.dart';
 import '../models/models.dart';
-import '../services/progress_service.dart';
+import '../services/tts_service.dart';
 
 class SpeakingScreen extends StatefulWidget {
   const SpeakingScreen({super.key});
@@ -13,7 +12,7 @@ class SpeakingScreen extends StatefulWidget {
 }
 
 class _SpeakingScreenState extends State<SpeakingScreen> {
-  final FlutterTts _tts = FlutterTts();
+  final _tts = TtsService.instance;
   String _selectedCategory = 'All';
   int _currentIndex = 0;
   int _highlightedWord = -1;
@@ -21,6 +20,7 @@ class _SpeakingScreenState extends State<SpeakingScreen> {
   bool _userTurn = false;
   List<String> _words = [];
   Timer? _timer;
+  String _accent = TtsService.currentAccent;
 
   List<SpeakingText> get _filteredTexts {
     if (_selectedCategory == 'All') return ContentProvider.speakingTexts;
@@ -30,7 +30,6 @@ class _SpeakingScreenState extends State<SpeakingScreen> {
   @override
   void initState() {
     super.initState();
-    _tts.setLanguage('en-US');
     _tts.setSpeechRate(0.4);
     _tts.awaitSpeakCompletion(true);
     _tts.setCompletionHandler(() {
@@ -88,7 +87,18 @@ class _SpeakingScreenState extends State<SpeakingScreen> {
     final texts = _filteredTexts;
     final categories = ['All', ...ContentProvider.speakingCategories];
     return Scaffold(
-      appBar: AppBar(title: const Text('Speaking Practice')),
+      appBar: AppBar(
+        title: const Text('Speaking Practice'),
+        actions: [
+          DropdownButton<String>(
+            value: _accent,
+            underline: const SizedBox(),
+            items: TtsService.accents.keys.map((a) => DropdownMenuItem(value: a, child: Text(a, style: const TextStyle(fontSize: 13)))).toList(),
+            onChanged: (v) { TtsService.setAccent(v!); setState(() => _accent = v); },
+          ),
+          const SizedBox(width: 8),
+        ],
+      ),
       body: Column(
         children: [
           // Category chips
