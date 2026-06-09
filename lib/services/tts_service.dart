@@ -13,6 +13,12 @@ class TtsService {
     'Australian': 'en-AU',
   };
 
+  static const Map<String, String> accentFlags = {
+    'American': '🇺🇸',
+    'British': '🇬🇧',
+    'Australian': '🇦🇺',
+  };
+
   static Timer? _keepAliveTimer;
 
   static String get currentAccent {

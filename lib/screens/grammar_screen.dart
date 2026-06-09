@@ -32,7 +32,17 @@ class _GrammarScreenState extends State<GrammarScreen> {
                 foregroundColor: isDone || isNext ? Colors.white : null,
                 child: isDone ? const Icon(Icons.check, size: 18) : Text('${index + 1}'),
               ),
-              title: Text(lesson.title, style: const TextStyle(fontWeight: FontWeight.bold)),
+              title: Row(children: [
+                Expanded(child: Text(lesson.title, style: const TextStyle(fontWeight: FontWeight.bold))),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                  decoration: BoxDecoration(
+                    color: lesson.level == 'C1' ? Colors.deepPurple : lesson.level == 'B2' ? Colors.blue : Colors.green,
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  child: Text(lesson.level, style: const TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.bold)),
+                ),
+              ]),
               subtitle: Text('${lesson.exercises.length} exercises${isDone ? " ✓ Done" : isNext ? " ← Continue" : ""}'),
               trailing: const Icon(Icons.arrow_forward_ios),
               onTap: () async {

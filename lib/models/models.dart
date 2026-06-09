@@ -13,8 +13,9 @@ class GrammarLesson {
   final String explanation;
   final List<String> examples;
   final List<GrammarExercise> exercises;
+  final String level; // B1, B2, C1
 
-  const GrammarLesson({required this.title, required this.explanation, required this.examples, required this.exercises});
+  const GrammarLesson({required this.title, required this.explanation, required this.examples, required this.exercises, this.level = 'B2'});
 }
 
 class GrammarExercise {

@@ -36,6 +36,7 @@ class ContentProvider {
 
   static const List<GrammarLesson> grammarLessons = [
     GrammarLesson(
+      level: 'C1',
       title: 'Mixed Conditionals',
       explanation: 'Mixed conditionals combine different time references in the if-clause and main clause. Type 3 + Type 2: If + past perfect, would + infinitive (past condition, present result). Type 2 + Type 3: If + past simple, would have + past participle (present condition, past result).',
       examples: [
@@ -50,6 +51,7 @@ class ContentProvider {
       ],
     ),
     GrammarLesson(
+      level: 'B2',
       title: 'Reported Speech (Advanced)',
       explanation: 'In reported speech, we shift tenses back, change pronouns, and adjust time/place references. Advanced patterns include reporting questions, commands, suggestions, and using reporting verbs like claim, deny, insist, suggest, warn.',
       examples: [
@@ -64,6 +66,7 @@ class ContentProvider {
       ],
     ),
     GrammarLesson(
+      level: 'B2',
       title: 'Passive Voice (Advanced)',
       explanation: 'Advanced passive constructions include: causative have/get (have something done), impersonal passive (It is said that...), passive with reporting verbs, and double object passives.',
       examples: [
@@ -78,6 +81,7 @@ class ContentProvider {
       ],
     ),
     GrammarLesson(
+      level: 'B1',
       title: 'Relative Clauses (Defining & Non-defining)',
       explanation: 'Defining clauses identify which person/thing we mean (no commas). Non-defining clauses add extra information (with commas). In defining clauses, who/which/that can be omitted when they are the object. Reduced relative clauses use participles.',
       examples: [
@@ -92,6 +96,7 @@ class ContentProvider {
       ],
     ),
     GrammarLesson(
+      level: 'C1',
       title: 'Inversion for Emphasis',
       explanation: 'Inversion (putting auxiliary before subject) is used after negative/restrictive adverbials for emphasis: Never, Rarely, Seldom, Not only...but also, Hardly...when, No sooner...than, Only after/when, Under no circumstances.',
       examples: [

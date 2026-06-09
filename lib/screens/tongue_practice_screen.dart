@@ -85,7 +85,7 @@ class _TonguePracticeScreenState extends State<TonguePracticeScreen> {
           DropdownButton<String>(
             value: _accent,
             underline: const SizedBox(),
-            items: TtsService.accents.keys.map((a) => DropdownMenuItem(value: a, child: Text(a, style: const TextStyle(fontSize: 13)))).toList(),
+            items: TtsService.accents.keys.map((a) => DropdownMenuItem(value: a, child: Text(TtsService.accentFlags[a]!, style: const TextStyle(fontSize: 20)))).toList(),
             onChanged: (v) { TtsService.setAccent(v!); setState(() => _accent = v); },
           ),
         ],
