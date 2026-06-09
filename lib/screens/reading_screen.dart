@@ -12,10 +12,12 @@ class ReadingScreen extends StatefulWidget {
 
 class _ReadingScreenState extends State<ReadingScreen> {
   String _selectedCategory = 'All';
+  String _selectedLevel = 'Medium';
 
   List<ReadingPassage> get _filteredPassages {
-    if (_selectedCategory == 'All') return ContentProvider.readingPassages;
-    return ContentProvider.readingPassages.where((p) => p.category == _selectedCategory).toList();
+    var list = ContentProvider.readingPassages.where((p) => p.level == _selectedLevel).toList();
+    if (_selectedCategory != 'All') list = list.where((p) => p.category == _selectedCategory).toList();
+    return list;
   }
 
   @override
@@ -25,6 +27,21 @@ class _ReadingScreenState extends State<ReadingScreen> {
       appBar: AppBar(title: const Text('Reading Comprehension')),
       body: Column(
         children: [
+          // Level selector
+          Padding(
+            padding: const EdgeInsets.fromLTRB(12, 8, 12, 0),
+            child: Row(
+              children: ['Easy', 'Medium', 'Hard'].map((l) => Padding(
+                padding: const EdgeInsets.only(right: 8),
+                child: ChoiceChip(
+                  label: Text(l, style: TextStyle(fontSize: 12, color: _selectedLevel == l ? Colors.white : null)),
+                  selected: _selectedLevel == l,
+                  selectedColor: l == 'Easy' ? Colors.green : l == 'Medium' ? Colors.orange : Colors.red,
+                  onSelected: (_) => setState(() => _selectedLevel = l),
+                ),
+              )).toList(),
+            ),
+          ),
           // Category chips
           SizedBox(
             height: 50,

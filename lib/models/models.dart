@@ -29,17 +29,19 @@ class ReadingPassage {
   final String title;
   final String text;
   final String category;
+  final String level;
   final List<QuizQuestion> questions;
 
-  const ReadingPassage({required this.title, required this.text, required this.category, required this.questions});
+  const ReadingPassage({required this.title, required this.text, required this.category, required this.questions, this.level = 'Medium'});
 }
 
 class SpeakingText {
   final String title;
   final String text;
   final String category;
+  final String level;
 
-  const SpeakingText({required this.title, required this.text, required this.category});
+  const SpeakingText({required this.title, required this.text, required this.category, this.level = 'Medium'});
 }
 
 class QuizQuestion {

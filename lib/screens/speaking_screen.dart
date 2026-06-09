@@ -14,6 +14,7 @@ class SpeakingScreen extends StatefulWidget {
 class _SpeakingScreenState extends State<SpeakingScreen> {
   final _tts = TtsService.instance;
   String _selectedCategory = 'All';
+  String _selectedLevel = 'Medium';
   int _currentIndex = 0;
   int _highlightedWord = -1;
   bool _isPlaying = false;
@@ -23,8 +24,9 @@ class _SpeakingScreenState extends State<SpeakingScreen> {
   String _accent = TtsService.currentAccent;
 
   List<SpeakingText> get _filteredTexts {
-    if (_selectedCategory == 'All') return ContentProvider.speakingTexts;
-    return ContentProvider.speakingTexts.where((s) => s.category == _selectedCategory).toList();
+    var list = ContentProvider.speakingTexts.where((s) => s.level == _selectedLevel).toList();
+    if (_selectedCategory != 'All') list = list.where((s) => s.category == _selectedCategory).toList();
+    return list;
   }
 
   @override
@@ -101,6 +103,21 @@ class _SpeakingScreenState extends State<SpeakingScreen> {
       ),
       body: Column(
         children: [
+          // Level selector
+          Padding(
+            padding: const EdgeInsets.fromLTRB(12, 8, 12, 0),
+            child: Row(
+              children: ['Easy', 'Medium', 'Hard'].map((l) => Padding(
+                padding: const EdgeInsets.only(right: 8),
+                child: ChoiceChip(
+                  label: Text(l, style: TextStyle(fontSize: 12, color: _selectedLevel == l ? Colors.white : null)),
+                  selected: _selectedLevel == l,
+                  selectedColor: l == 'Easy' ? Colors.green : l == 'Medium' ? Colors.orange : Colors.red,
+                  onSelected: (_) { _stop(); setState(() { _selectedLevel = l; _currentIndex = 0; _userTurn = false; }); _loadWords(); },
+                ),
+              )).toList(),
+            ),
+          ),
           // Category chips
           SizedBox(
             height: 50,

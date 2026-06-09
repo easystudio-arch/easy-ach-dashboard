@@ -344,6 +344,158 @@ Educational systems that support early bilingual instruction—such as immersion
         QuizQuestion(question: 'The word "confers" means:', options: ['Removes', 'Grants or provides', 'Requires', 'Limits'], correctIndex: 1, explanation: '"Confers" means to grant or give a benefit or advantage.'),
       ],
     ),
+    // === EASY ===
+    ReadingPassage(
+      category: 'Technology',
+      level: 'Easy',
+      title: 'Smartphones',
+      text: '''Almost everyone has a smartphone today. We use it to call friends, send messages, and take photos. Smartphones can also help us find directions and play games. Many people use their phone more than their computer. It is important to be careful with screen time. Too much phone use can be bad for your eyes and sleep.''',
+      questions: [
+        QuizQuestion(question: 'What do we use smartphones for?', options: ['Only calling', 'Calling, messaging, photos, and more', 'Only games', 'Only work'], correctIndex: 1, explanation: 'The passage lists many uses: call, message, take photos, find directions, play games.'),
+        QuizQuestion(question: 'What can too much phone use cause?', options: ['Happiness', 'Problems with eyes and sleep', 'Better health', 'More friends'], correctIndex: 1, explanation: 'The passage says too much use "can be bad for your eyes and sleep."'),
+      ],
+    ),
+    ReadingPassage(
+      category: 'Environment',
+      level: 'Easy',
+      title: 'Saving Water',
+      text: '''Water is very important for life. We drink it, cook with it, and use it to clean. But clean water is limited. We should not waste it. Turn off the tap when you brush your teeth. Take shorter showers. Fix leaking pipes. If everyone saves a little water, it makes a big difference for our planet.''',
+      questions: [
+        QuizQuestion(question: 'Why should we save water?', options: ['Water is expensive', 'Clean water is limited', 'We do not need water', 'Water is dirty'], correctIndex: 1, explanation: 'The passage states "clean water is limited."'),
+        QuizQuestion(question: 'What is one way to save water?', options: ['Take longer showers', 'Leave the tap on', 'Take shorter showers', 'Use more water'], correctIndex: 2, explanation: 'The passage suggests "Take shorter showers."'),
+      ],
+    ),
+    ReadingPassage(
+      category: 'Business',
+      level: 'Easy',
+      title: 'Working in an Office',
+      text: '''Many people work in offices. They use computers and phones. Most offices have meeting rooms where people discuss ideas. It is important to be polite to your coworkers. Say good morning when you arrive. Help others when they need it. A good office has a friendly team that works well together.''',
+      questions: [
+        QuizQuestion(question: 'What do people use in offices?', options: ['Only paper', 'Computers and phones', 'Only their hands', 'Nothing'], correctIndex: 1, explanation: 'The passage says "They use computers and phones."'),
+        QuizQuestion(question: 'What makes a good office?', options: ['Expensive furniture', 'A friendly team', 'A big building', 'Free food'], correctIndex: 1, explanation: '"A good office has a friendly team that works well together."'),
+      ],
+    ),
+    ReadingPassage(
+      category: 'Health',
+      level: 'Easy',
+      title: 'Eating Healthy',
+      text: '''Eating healthy food is good for your body. Fruits and vegetables give you vitamins. Rice, bread, and pasta give you energy. Meat and fish help your muscles grow strong. Try to eat less sugar and salt. Drink plenty of water every day. A balanced diet keeps you healthy and happy.''',
+      questions: [
+        QuizQuestion(question: 'What do fruits and vegetables give you?', options: ['Energy', 'Vitamins', 'Protein', 'Sugar'], correctIndex: 1, explanation: '"Fruits and vegetables give you vitamins."'),
+        QuizQuestion(question: 'What should you drink every day?', options: ['Soda', 'Coffee', 'Plenty of water', 'Juice only'], correctIndex: 2, explanation: 'The passage says "Drink plenty of water every day."'),
+      ],
+    ),
+    ReadingPassage(
+      category: 'Education',
+      level: 'Easy',
+      title: 'Learning English',
+      text: '''English is spoken in many countries around the world. Learning English can help you travel, make friends, and get a better job. You can learn by reading books, watching movies, and talking to people. Practice every day, even for just ten minutes. Do not be afraid of mistakes. Mistakes help you learn faster.''',
+      questions: [
+        QuizQuestion(question: 'How can learning English help you?', options: ['Only for travel', 'Travel, friends, and better jobs', 'Only for school', 'It cannot help'], correctIndex: 1, explanation: 'The passage mentions travel, making friends, and getting a better job.'),
+        QuizQuestion(question: 'What should you not be afraid of?', options: ['Teachers', 'Books', 'Mistakes', 'Speaking'], correctIndex: 2, explanation: '"Do not be afraid of mistakes. Mistakes help you learn faster."'),
+      ],
+    ),
+    // === HARD ===
+    ReadingPassage(
+      category: 'Technology',
+      level: 'Hard',
+      title: 'The Epistemology of Artificial General Intelligence',
+      text: '''The pursuit of artificial general intelligence (AGI) raises profound epistemological questions about the nature of understanding itself. Unlike narrow AI systems that excel within predefined domains, AGI would theoretically possess the capacity for cross-domain reasoning, abstraction, and genuine comprehension—capabilities that remain philosophically contentious even when attributed to biological intelligence.
+
+The Chinese Room argument, proposed by John Searle in 1980, remains perhaps the most influential challenge to strong AI claims. Searle contends that syntactic manipulation of symbols—regardless of its sophistication—cannot constitute genuine semantic understanding. A system that processes inputs and generates contextually appropriate outputs may exhibit behavioral indistinguishability from understanding without possessing any subjective comprehension whatsoever.
+
+Contemporary approaches to AGI, particularly large language models trained on massive corpora, have reinvigorated this debate. These systems demonstrate remarkable fluency across diverse domains, yet whether they genuinely "understand" language or merely exploit statistical regularities remains deeply contested. The phenomenon of hallucination—where models generate plausible but factually incorrect assertions with apparent confidence—suggests fundamental limitations in their relationship to truth and knowledge.
+
+The alignment problem represents perhaps the most urgent practical concern surrounding AGI development. Ensuring that a superintelligent system's objectives remain consonant with human values presupposes that human values themselves are sufficiently coherent and stable to serve as alignment targets—an assumption that moral philosophy has consistently challenged throughout its history.
+
+Whether AGI is achievable through scaling current architectures or requires fundamentally novel computational paradigms remains an open question. What seems certain is that its development—or the sustained attempt to develop it—will continue to illuminate fundamental questions about consciousness, understanding, and the nature of intelligence itself.''',
+      questions: [
+        QuizQuestion(question: 'What is the Chinese Room argument about?', options: ['Learning Chinese', 'Symbol manipulation cannot constitute genuine understanding', 'Building better computers', 'Language translation'], correctIndex: 1, explanation: 'Searle contends that "syntactic manipulation of symbols cannot constitute genuine semantic understanding."'),
+        QuizQuestion(question: 'What does "hallucination" refer to in AI context?', options: ['Visual processing errors', 'Generating plausible but incorrect assertions', 'System crashes', 'Slow response times'], correctIndex: 1, explanation: '"Hallucination" is where models "generate plausible but factually incorrect assertions."'),
+        QuizQuestion(question: 'What is the alignment problem?', options: ['Making AI faster', 'Ensuring AI objectives match human values', 'Training data quality', 'Hardware limitations'], correctIndex: 1, explanation: 'It involves "ensuring that a superintelligent system\'s objectives remain consonant with human values."'),
+        QuizQuestion(question: 'The word "consonant" in this context means:', options: ['Musical', 'In agreement or harmony with', 'Contradictory', 'Alphabetical'], correctIndex: 1, explanation: '"Consonant with" means in agreement or compatible with.'),
+      ],
+    ),
+    ReadingPassage(
+      category: 'Environment',
+      level: 'Hard',
+      title: 'Anthropocene Extinction Dynamics',
+      text: '''The contemporary biodiversity crisis—often characterized as the sixth mass extinction—differs fundamentally from its geological predecessors in both etiology and velocity. While previous extinction events were precipitated by asteroid impacts, volcanic cataclysms, or gradual atmospheric shifts occurring over millennia, the current crisis is anthropogenic in origin and is unfolding at rates estimated to be 100 to 1,000 times the background extinction rate.
+
+The cascading effects of biodiversity loss extend far beyond the disappearance of individual species. Ecosystem services—pollination, water purification, carbon sequestration, nutrient cycling—depend upon complex webs of interspecific relationships that exhibit non-linear dynamics. The removal of keystone species can trigger trophic cascades with consequences that are difficult to predict and potentially irreversible.
+
+The concept of planetary boundaries, developed by Johan Rockström and colleagues, identifies biosphere integrity as one of two core boundaries whose transgression could drive the Earth system into a fundamentally different state. Current trajectories suggest that genetic diversity loss has already exceeded the proposed safe operating space for humanity.
+
+Conservation biology has evolved from preservationist paradigms focused on charismatic megafauna to more sophisticated frameworks incorporating landscape connectivity, functional redundancy, and evolutionary potential. Rewilding initiatives seek to restore ecological processes rather than merely preserving static assemblages, recognizing that ecosystems are dynamic entities requiring functional completeness to maintain resilience.
+
+The intersection of climate change and habitat fragmentation creates a particularly pernicious synergy. Species that might otherwise adapt through range shifts find their migration corridors severed by agricultural and urban development, while those in protected areas face conditions increasingly divergent from those under which the reserves were established.''',
+      questions: [
+        QuizQuestion(question: 'How does the current extinction differ from previous ones?', options: ['It is slower', 'It is caused by humans and much faster', 'It affects fewer species', 'It is natural'], correctIndex: 1, explanation: 'It is "anthropogenic in origin and unfolding at rates 100 to 1,000 times the background rate."'),
+        QuizQuestion(question: 'What are "trophic cascades"?', options: ['Water features', 'Chain reactions from removing keystone species', 'Types of extinction', 'Climate patterns'], correctIndex: 1, explanation: '"Removal of keystone species can trigger trophic cascades with consequences that are difficult to predict."'),
+        QuizQuestion(question: 'What does modern conservation biology focus on?', options: ['Only large animals', 'Landscape connectivity and ecological processes', 'Zoos only', 'Tourism'], correctIndex: 1, explanation: 'It incorporates "landscape connectivity, functional redundancy, and evolutionary potential."'),
+        QuizQuestion(question: 'The word "pernicious" means:', options: ['Beneficial', 'Harmless', 'Causing great harm gradually', 'Temporary'], correctIndex: 2, explanation: '"Pernicious" means having a harmful effect, especially in a subtle or gradual way.'),
+      ],
+    ),
+    ReadingPassage(
+      category: 'Business',
+      level: 'Hard',
+      title: 'Behavioral Economics and Market Irrationality',
+      text: '''The efficient market hypothesis—the cornerstone of neoclassical financial theory—posits that asset prices fully reflect all available information, rendering consistent outperformance through active management theoretically impossible. However, decades of empirical research in behavioral economics have documented systematic deviations from rationality that challenge this foundational assumption.
+
+Prospect theory, developed by Kahneman and Tversky, demonstrates that individuals evaluate outcomes relative to reference points rather than absolute values, exhibiting loss aversion (losses loom approximately twice as large as equivalent gains) and probability weighting (overweighting small probabilities while underweighting large ones). These cognitive biases generate predictable patterns in financial decision-making.
+
+The phenomenon of herding behavior—wherein investors mimic the actions of larger groups regardless of their own information—can amplify market movements beyond what fundamentals justify, creating bubbles and subsequent crashes. The dot-com bubble and the 2008 financial crisis both exhibited characteristics consistent with collective cognitive biases overwhelming individual rationality.
+
+Nudge architecture, which structures choice environments to exploit predictable irrationalities for prosocial ends, has gained considerable policy traction. Default enrollment in retirement savings plans, for instance, leverages status quo bias to dramatically increase participation rates without restricting individual freedom of choice.
+
+The integration of behavioral insights into regulatory frameworks represents a paradigmatic shift from homo economicus—the perfectly rational agent of classical theory—toward a more empirically grounded understanding of human decision-making that acknowledges our cognitive limitations while respecting individual autonomy.''',
+      questions: [
+        QuizQuestion(question: 'What does the efficient market hypothesis claim?', options: ['Markets are unfair', 'Asset prices reflect all available information', 'Everyone can beat the market', 'Government controls prices'], correctIndex: 1, explanation: 'It "posits that asset prices fully reflect all available information."'),
+        QuizQuestion(question: 'What is loss aversion?', options: ['Fear of investing', 'Losses feel twice as painful as equivalent gains feel good', 'Avoiding all risk', 'Selling too quickly'], correctIndex: 1, explanation: '"Losses loom approximately twice as large as equivalent gains."'),
+        QuizQuestion(question: 'What is "nudge architecture"?', options: ['Building design', 'Structuring choices to exploit biases for good', 'Marketing strategy', 'Legal requirements'], correctIndex: 1, explanation: 'It "structures choice environments to exploit predictable irrationalities for prosocial ends."'),
+        QuizQuestion(question: 'The word "paradigmatic" means:', options: ['Unimportant', 'Serving as a typical example or fundamental shift', 'Temporary', 'Controversial'], correctIndex: 1, explanation: '"Paradigmatic" relates to a fundamental change in approach or model.'),
+      ],
+    ),
+    ReadingPassage(
+      category: 'Health',
+      level: 'Hard',
+      title: 'The Gut-Brain Axis and Psychiatric Medicine',
+      text: '''The bidirectional communication pathway between the gastrointestinal microbiome and the central nervous system—termed the gut-brain axis—has emerged as one of the most transformative discoveries in contemporary neuroscience. This complex signaling network, operating through neural, endocrine, and immunological mechanisms, suggests that psychiatric conditions traditionally conceptualized as purely neurological may have significant peripheral etiological components.
+
+The human gut harbors approximately 100 trillion microorganisms comprising over 1,000 species, collectively encoding 150 times more genes than the human genome. This microbial ecosystem produces neurotransmitters—including approximately 95% of the body's serotonin—and metabolites that cross the blood-brain barrier, directly influencing neural function and behavior.
+
+Clinical studies have demonstrated correlations between specific microbiome compositions and psychiatric conditions including depression, anxiety, autism spectrum disorder, and schizophrenia. Germ-free animal models exhibit altered stress responses and social behaviors that normalize upon colonization with conventional microbiota, providing compelling evidence for causal rather than merely correlational relationships.
+
+The therapeutic implications are profound. Psychobiotics—probiotics administered for mental health benefits—represent a nascent but promising intervention modality. Fecal microbiota transplantation, while primarily validated for Clostridioides difficile infection, is being investigated for psychiatric applications with preliminary results suggesting potential efficacy.
+
+However, the field faces significant methodological challenges. The microbiome's extraordinary complexity and individual variability, combined with the difficulty of establishing causality in observational studies, necessitate cautious interpretation of current findings. The translational pathway from correlational discoveries to validated clinical interventions remains substantially longer than public enthusiasm might suggest.''',
+      questions: [
+        QuizQuestion(question: 'What is the gut-brain axis?', options: ['A type of surgery', 'Bidirectional communication between gut microbiome and brain', 'A diet plan', 'A brain scan technique'], correctIndex: 1, explanation: 'It is "the bidirectional communication pathway between the gastrointestinal microbiome and the central nervous system."'),
+        QuizQuestion(question: 'How much of the body\'s serotonin is produced in the gut?', options: ['About 50%', 'About 75%', 'Approximately 95%', '100%'], correctIndex: 2, explanation: 'The gut produces "approximately 95% of the body\'s serotonin."'),
+        QuizQuestion(question: 'What are psychobiotics?', options: ['Antibiotics', 'Probiotics for mental health benefits', 'Antidepressants', 'Brain supplements'], correctIndex: 1, explanation: '"Psychobiotics—probiotics administered for mental health benefits."'),
+        QuizQuestion(question: 'The word "nascent" means:', options: ['Dying', 'Just beginning to develop', 'Well-established', 'Controversial'], correctIndex: 1, explanation: '"Nascent" means just beginning to develop; in the earliest stage.'),
+      ],
+    ),
+    ReadingPassage(
+      category: 'Education',
+      level: 'Hard',
+      title: 'Critical Pedagogy and Epistemic Justice',
+      text: '''Critical pedagogy, rooted in the work of Paulo Freire and subsequently elaborated by scholars including bell hooks, Henry Giroux, and Peter McLaren, fundamentally reconceptualizes education as a practice of freedom rather than a mechanism of social reproduction. This framework challenges the "banking model" of education—wherein students are treated as passive receptacles for deposited knowledge—advocating instead for dialogical praxis that empowers learners as co-constructors of meaning.
+
+The concept of epistemic injustice, articulated by Miranda Fricker, identifies two primary forms of knowledge-related oppression: testimonial injustice, wherein speakers receive diminished credibility due to identity prejudice, and hermeneutical injustice, wherein marginalized groups lack the interpretive resources to render their experiences intelligible. Educational institutions can perpetuate both forms through curriculum design, assessment practices, and classroom dynamics.
+
+Decolonizing the curriculum extends beyond diversifying reading lists to fundamentally questioning whose knowledge counts as legitimate, what methodologies are valorized, and which epistemological frameworks structure inquiry. This project requires interrogating the universalist assumptions embedded in Western academic traditions while avoiding the relativist position that all knowledge claims are equally valid.
+
+The tension between standardization and culturally responsive pedagogy represents a persistent structural challenge. Accountability systems predicated on standardized assessment inevitably privilege particular cultural and linguistic competencies while marginalizing others, potentially reproducing the very inequities they purport to address.
+
+Transformative educational practice, from this perspective, necessarily involves cultivating critical consciousness—the capacity to perceive and challenge systemic oppression—while simultaneously developing the disciplinary knowledge and skills that enable effective participation in existing social structures. Navigating this dual mandate without sacrificing either dimension constitutes the fundamental challenge of liberatory education.''',
+      questions: [
+        QuizQuestion(question: 'What is the "banking model" of education?', options: ['Teaching finance', 'Treating students as passive recipients of knowledge', 'Online learning', 'Self-directed study'], correctIndex: 1, explanation: 'Students are "treated as passive receptacles for deposited knowledge."'),
+        QuizQuestion(question: 'What is testimonial injustice?', options: ['Lying in court', 'Speakers receiving less credibility due to identity prejudice', 'Bad test scores', 'Unfair grading'], correctIndex: 1, explanation: '"Testimonial injustice, wherein speakers receive diminished credibility due to identity prejudice."'),
+        QuizQuestion(question: 'What does decolonizing the curriculum involve?', options: ['Removing all Western content', 'Questioning whose knowledge counts as legitimate', 'Teaching only local content', 'Eliminating exams'], correctIndex: 1, explanation: 'It involves "fundamentally questioning whose knowledge counts as legitimate."'),
+        QuizQuestion(question: 'The word "praxis" means:', options: ['Theory only', 'Practice informed by theory', 'Testing', 'Memorization'], correctIndex: 1, explanation: '"Praxis" refers to the process of putting theoretical knowledge into practice.'),
+      ],
+    ),
   ];
 
   static const List<QuizQuestion> generalQuiz = [
@@ -365,26 +517,41 @@ Educational systems that support early bilingual instruction—such as immersion
   ];
 
   static const List<SpeakingText> speakingTexts = [
-    // --- Daily Life ---
-    SpeakingText(category: 'Daily Life', title: 'Morning Routine', text: 'The ability to communicate effectively in English has become increasingly important in today\'s globalized world. Whether you\'re conducting business negotiations, presenting research findings, or simply traveling abroad, proficiency in English opens doors to countless opportunities.'),
-    SpeakingText(category: 'Daily Life', title: 'Healthy Habits', text: 'Maintaining a balanced lifestyle requires conscious effort and daily discipline. Regular exercise, adequate sleep, and mindful eating are the foundations of physical well-being. Equally important is nurturing mental health through meditation, social connections, and engaging hobbies.'),
-    SpeakingText(category: 'Daily Life', title: 'Weekend Plans', text: 'Planning your weekends in advance can significantly improve your quality of life. Whether you prefer outdoor adventures, cultural experiences, or simply relaxing at home, having something to look forward to helps maintain motivation throughout the busy workweek.'),
-    // --- Business ---
-    SpeakingText(category: 'Business', title: 'Job Interview', text: 'Education systems around the world are undergoing significant reforms as societies recognize the need to prepare students for a rapidly changing job market. Traditional models of rote learning are giving way to approaches that emphasize critical thinking, creativity, and collaboration.'),
-    SpeakingText(category: 'Business', title: 'Team Meeting', text: 'Effective meetings require clear agendas, defined objectives, and active participation from all team members. The most productive teams establish ground rules that encourage open communication while respecting time constraints. Follow-up action items ensure accountability and progress.'),
-    SpeakingText(category: 'Business', title: 'Client Presentation', text: 'Delivering a compelling presentation requires thorough preparation and audience awareness. Structure your content with a clear introduction, supporting evidence, and a memorable conclusion. Engage your audience through storytelling, relevant data, and confident body language.'),
-    // --- Academic ---
-    SpeakingText(category: 'Academic', title: 'Research Discussion', text: 'The concept of sustainable development seeks to balance economic growth with environmental protection and social equity. It recognizes that the resources of our planet are finite and that current patterns of consumption cannot continue indefinitely without severe consequences for future generations.'),
-    SpeakingText(category: 'Academic', title: 'Lecture Summary', text: 'The digital revolution has transformed virtually every aspect of modern life. From how we communicate and consume information to how we work and entertain ourselves, technology has reshaped our daily routines in ways that would have been unimaginable just a few decades ago.'),
-    SpeakingText(category: 'Academic', title: 'Thesis Defense', text: 'Presenting academic research effectively requires clarity of argument and command of evidence. A successful thesis defense demonstrates not only deep knowledge of the subject matter but also awareness of its limitations and potential directions for future investigation.'),
-    // --- Travel ---
-    SpeakingText(category: 'Travel', title: 'At the Airport', text: 'Navigating international airports can be overwhelming for first-time travelers. Understanding the process from check-in through security screening to boarding helps reduce anxiety. Arriving early allows time for unexpected delays and provides opportunities to explore duty-free shops and airport lounges.'),
-    SpeakingText(category: 'Travel', title: 'Hotel Check-in', text: 'When checking into a hotel abroad, clear communication ensures a smooth experience. Confirm your reservation details, ask about available amenities, and inquire about local recommendations. Most hotel staff are happy to suggest restaurants, attractions, and transportation options.'),
-    SpeakingText(category: 'Travel', title: 'Asking Directions', text: 'Getting lost in a foreign city can be frustrating but also adventurous. Learning key phrases for asking directions politely shows respect for local culture. Always confirm your understanding by repeating the instructions back, and don\'t hesitate to ask multiple people if needed.'),
-    // --- Technology ---
-    SpeakingText(category: 'Technology', title: 'Tech Review', text: 'Climate change represents one of the most significant challenges facing humanity today. Scientists have reached a consensus that human activities, particularly the burning of fossil fuels, are the primary drivers of global warming. The consequences include rising sea levels, more frequent extreme weather events, and disruptions to ecosystems worldwide.'),
-    SpeakingText(category: 'Technology', title: 'App Development', text: 'Building a successful application requires understanding user needs and delivering intuitive experiences. The best developers combine technical expertise with empathy for end users. Iterative testing and feedback loops ensure the final product meets real-world requirements effectively.'),
-    SpeakingText(category: 'Technology', title: 'Future of AI', text: 'Artificial intelligence is transforming industries at an unprecedented pace. From healthcare diagnostics to autonomous vehicles, machine learning algorithms are solving problems that once seemed impossible. However, responsible development requires careful consideration of ethical implications and societal impact.'),
+    // === EASY ===
+    SpeakingText(category: 'Daily Life', title: 'My Morning', level: 'Easy', text: 'I wake up at seven o\'clock every day. I brush my teeth and take a shower. Then I eat breakfast with my family. I usually have bread and coffee.'),
+    SpeakingText(category: 'Daily Life', title: 'My Favorite Food', level: 'Easy', text: 'I love eating pizza. It has cheese, tomato sauce, and many toppings. I eat pizza every Friday with my friends. It makes me happy.'),
+    SpeakingText(category: 'Daily Life', title: 'Going Shopping', level: 'Easy', text: 'I go to the supermarket every weekend. I buy fruits, vegetables, and milk. Sometimes I buy chocolate too. I pay with my card.'),
+    SpeakingText(category: 'Business', title: 'My Job', level: 'Easy', text: 'I work in an office. I start at nine and finish at five. I use a computer every day. My coworkers are very friendly.'),
+    SpeakingText(category: 'Business', title: 'A Phone Call', level: 'Easy', text: 'Hello, this is John speaking. Can I help you? Please wait a moment. I will transfer your call. Thank you for calling.'),
+    SpeakingText(category: 'Travel', title: 'At the Hotel', level: 'Easy', text: 'I have a reservation. My name is Sarah. I would like a room with a view. How much does it cost per night? Thank you very much.'),
+    SpeakingText(category: 'Travel', title: 'Ordering Food', level: 'Easy', text: 'Can I see the menu please? I would like a chicken sandwich and a glass of water. How long will it take? The food is delicious. Can I have the bill?'),
+    SpeakingText(category: 'Academic', title: 'My School', level: 'Easy', text: 'I study English at school. My teacher is very nice. We read books and practice speaking. I learn new words every day.'),
+    SpeakingText(category: 'Technology', title: 'My Phone', level: 'Easy', text: 'I use my phone every day. I send messages to my friends. I also watch videos and listen to music. My phone is very useful.'),
+    // === MEDIUM ===
+    SpeakingText(category: 'Daily Life', title: 'Morning Routine', level: 'Medium', text: 'The ability to communicate effectively in English has become increasingly important in today\'s globalized world. Whether you\'re conducting business negotiations, presenting research findings, or simply traveling abroad, proficiency in English opens doors to countless opportunities.'),
+    SpeakingText(category: 'Daily Life', title: 'Healthy Habits', level: 'Medium', text: 'Maintaining a balanced lifestyle requires conscious effort and daily discipline. Regular exercise, adequate sleep, and mindful eating are the foundations of physical well-being. Equally important is nurturing mental health through meditation, social connections, and engaging hobbies.'),
+    SpeakingText(category: 'Daily Life', title: 'Weekend Plans', level: 'Medium', text: 'Planning your weekends in advance can significantly improve your quality of life. Whether you prefer outdoor adventures, cultural experiences, or simply relaxing at home, having something to look forward to helps maintain motivation throughout the busy workweek.'),
+    SpeakingText(category: 'Business', title: 'Job Interview', level: 'Medium', text: 'Education systems around the world are undergoing significant reforms as societies recognize the need to prepare students for a rapidly changing job market. Traditional models of rote learning are giving way to approaches that emphasize critical thinking, creativity, and collaboration.'),
+    SpeakingText(category: 'Business', title: 'Team Meeting', level: 'Medium', text: 'Effective meetings require clear agendas, defined objectives, and active participation from all team members. The most productive teams establish ground rules that encourage open communication while respecting time constraints. Follow-up action items ensure accountability and progress.'),
+    SpeakingText(category: 'Business', title: 'Client Presentation', level: 'Medium', text: 'Delivering a compelling presentation requires thorough preparation and audience awareness. Structure your content with a clear introduction, supporting evidence, and a memorable conclusion. Engage your audience through storytelling, relevant data, and confident body language.'),
+    SpeakingText(category: 'Academic', title: 'Research Discussion', level: 'Medium', text: 'The concept of sustainable development seeks to balance economic growth with environmental protection and social equity. It recognizes that the resources of our planet are finite and that current patterns of consumption cannot continue indefinitely without severe consequences for future generations.'),
+    SpeakingText(category: 'Academic', title: 'Lecture Summary', level: 'Medium', text: 'The digital revolution has transformed virtually every aspect of modern life. From how we communicate and consume information to how we work and entertain ourselves, technology has reshaped our daily routines in ways that would have been unimaginable just a few decades ago.'),
+    SpeakingText(category: 'Academic', title: 'Thesis Defense', level: 'Medium', text: 'Presenting academic research effectively requires clarity of argument and command of evidence. A successful thesis defense demonstrates not only deep knowledge of the subject matter but also awareness of its limitations and potential directions for future investigation.'),
+    SpeakingText(category: 'Travel', title: 'At the Airport', level: 'Medium', text: 'Navigating international airports can be overwhelming for first-time travelers. Understanding the process from check-in through security screening to boarding helps reduce anxiety. Arriving early allows time for unexpected delays and provides opportunities to explore duty-free shops and airport lounges.'),
+    SpeakingText(category: 'Travel', title: 'Hotel Check-in', level: 'Medium', text: 'When checking into a hotel abroad, clear communication ensures a smooth experience. Confirm your reservation details, ask about available amenities, and inquire about local recommendations. Most hotel staff are happy to suggest restaurants, attractions, and transportation options.'),
+    SpeakingText(category: 'Travel', title: 'Asking Directions', level: 'Medium', text: 'Getting lost in a foreign city can be frustrating but also adventurous. Learning key phrases for asking directions politely shows respect for local culture. Always confirm your understanding by repeating the instructions back, and don\'t hesitate to ask multiple people if needed.'),
+    SpeakingText(category: 'Technology', title: 'Tech Review', level: 'Medium', text: 'Climate change represents one of the most significant challenges facing humanity today. Scientists have reached a consensus that human activities, particularly the burning of fossil fuels, are the primary drivers of global warming. The consequences include rising sea levels, more frequent extreme weather events, and disruptions to ecosystems worldwide.'),
+    SpeakingText(category: 'Technology', title: 'App Development', level: 'Medium', text: 'Building a successful application requires understanding user needs and delivering intuitive experiences. The best developers combine technical expertise with empathy for end users. Iterative testing and feedback loops ensure the final product meets real-world requirements effectively.'),
+    SpeakingText(category: 'Technology', title: 'Future of AI', level: 'Medium', text: 'Artificial intelligence is transforming industries at an unprecedented pace. From healthcare diagnostics to autonomous vehicles, machine learning algorithms are solving problems that once seemed impossible. However, responsible development requires careful consideration of ethical implications and societal impact.'),
+    // === HARD ===
+    SpeakingText(category: 'Daily Life', title: 'Work-Life Integration', level: 'Hard', text: 'The contemporary discourse surrounding work-life balance has evolved considerably, with many organizational psychologists now advocating for the concept of work-life integration rather than strict separation. This paradigm acknowledges that the boundaries between professional obligations and personal fulfillment are increasingly permeable in our hyperconnected society, necessitating adaptive strategies for maintaining psychological equilibrium.'),
+    SpeakingText(category: 'Business', title: 'Strategic Innovation', level: 'Hard', text: 'Disruptive innovation fundamentally alters the competitive landscape by introducing products or services that initially target overlooked market segments before eventually displacing established incumbents. Organizations must cultivate ambidextrous capabilities, simultaneously exploiting existing competencies while exploring transformative opportunities, to navigate the inherent tensions between operational efficiency and strategic adaptability.'),
+    SpeakingText(category: 'Business', title: 'Corporate Governance', level: 'Hard', text: 'Effective corporate governance encompasses the mechanisms, processes, and relations by which corporations are controlled and directed. The principal-agent problem, wherein the interests of shareholders diverge from those of management, necessitates robust oversight frameworks including independent board composition, transparent executive compensation structures, and rigorous audit procedures.'),
+    SpeakingText(category: 'Academic', title: 'Epistemological Frameworks', level: 'Hard', text: 'The epistemological foundations of empirical research rest upon the assumption that observable phenomena can be systematically investigated through reproducible methodologies. However, post-positivist critiques have illuminated the inherent subjectivity embedded within ostensibly objective inquiry, suggesting that researchers\' theoretical commitments inevitably shape their interpretations of empirical evidence.'),
+    SpeakingText(category: 'Academic', title: 'Sociolinguistic Variation', level: 'Hard', text: 'Sociolinguistic research has demonstrated that language variation is not random but systematically correlated with social variables including socioeconomic status, ethnicity, gender, and contextual formality. Code-switching between linguistic varieties serves as a sophisticated communicative strategy through which speakers negotiate identity, establish solidarity, and exercise agency within hierarchical social structures.'),
+    SpeakingText(category: 'Travel', title: 'Cultural Immersion', level: 'Hard', text: 'Anthropological approaches to travel emphasize the distinction between superficial tourism and genuine cultural immersion, wherein the traveler transcends the role of passive observer to become an active participant in local meaning-making systems. This transformative engagement requires linguistic competence, ethnographic sensitivity, and willingness to confront one\'s own ethnocentric assumptions about normalcy and social organization.'),
+    SpeakingText(category: 'Technology', title: 'Quantum Computing Ethics', level: 'Hard', text: 'The advent of quantum computing presents unprecedented implications for cryptographic security, computational biology, and materials science. The potential for quantum supremacy to render current encryption protocols obsolete necessitates proactive development of post-quantum cryptographic standards, while simultaneously raising profound questions about the equitable distribution of transformative computational capabilities across geopolitical boundaries.'),
+    SpeakingText(category: 'Technology', title: 'Neural Architecture', level: 'Hard', text: 'Contemporary advances in transformer-based neural architectures have fundamentally reconceptualized the boundaries of natural language processing. The emergence of attention mechanisms and self-supervised pre-training paradigms has demonstrated that statistical regularities within massive corpora can approximate sophisticated linguistic competencies, challenging long-held assumptions about the necessity of innate grammatical knowledge.'),
   ];
 
   // Keep listeningTexts for backward compatibility with listening screen
