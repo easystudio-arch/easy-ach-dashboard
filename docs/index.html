@@ -48,6 +48,25 @@
         navigator.serviceWorker.register('sw.js');
       });
     }
+
+    // Force offline TTS voice selection
+    function getOfflineVoiceName(lang) {
+      var voices = window.speechSynthesis.getVoices();
+      // Prefer local (non-network) voices matching the language
+      var local = voices.filter(function(v) { return !v.localService === false && v.lang.startsWith(lang.substring(0,2)); });
+      var offline = voices.filter(function(v) { return v.localService === true && v.lang.startsWith(lang.substring(0,2)); });
+      if (offline.length > 0) return offline[0].name;
+      if (local.length > 0) return local[0].name;
+      return '';
+    }
+
+    function setUtteranceOfflineVoice(utterance, lang) {
+      var voices = window.speechSynthesis.getVoices();
+      var offline = voices.filter(function(v) { return v.localService === true && v.lang.startsWith(lang.substring(0,2)); });
+      if (offline.length > 0) {
+        utterance.voice = offline[0];
+      }
+    }
   </script>
 </body>
 </html>

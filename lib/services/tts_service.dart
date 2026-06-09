@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter_tts/flutter_tts.dart';
 import 'progress_service.dart';
 import 'tts_keepalive_stub.dart' if (dart.library.js_interop) 'tts_keepalive_web.dart';
+import 'tts_offline_voice_stub.dart' if (dart.library.js_interop) 'tts_offline_voice_web.dart';
 
 class TtsService {
   static final FlutterTts _tts = FlutterTts();
@@ -29,11 +30,20 @@ class TtsService {
   static FlutterTts get instance => _tts;
 
   static Future<void> init() async {
-    await _tts.setLanguage(accents[currentAccent]!);
+    final lang = accents[currentAccent]!;
+    await _tts.setLanguage(lang);
     if (kIsWeb) {
+      await _setOfflineVoice(lang);
       _tts.setStartHandler(() => _startKeepAlive());
       _tts.setCompletionHandler(() => _stopKeepAlive());
       _tts.setCancelHandler(() => _stopKeepAlive());
+    }
+  }
+
+  static Future<void> _setOfflineVoice(String lang) async {
+    final name = getOfflineVoiceNameForLang(lang);
+    if (name.isNotEmpty) {
+      await _tts.setVoice({"name": name, "locale": lang});
     }
   }
 
@@ -51,6 +61,8 @@ class TtsService {
 
   static Future<void> setAccent(String accent) async {
     ProgressService.saveLastString(_key, accent);
-    await _tts.setLanguage(accents[accent]!);
+    final lang = accents[accent]!;
+    await _tts.setLanguage(lang);
+    if (kIsWeb) await _setOfflineVoice(lang);
   }
 }
