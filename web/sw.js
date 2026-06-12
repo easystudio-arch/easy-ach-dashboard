@@ -1,4 +1,4 @@
-const CACHE_NAME = 'easyenglish-b2-v1';
+const CACHE_NAME = 'Dashboard Analytic-v1';
 const BASE = '/english-course/';
 const ASSETS = [
   './',

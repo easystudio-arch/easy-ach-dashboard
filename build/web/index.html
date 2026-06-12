@@ -1,72 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <!--
-    If you are serving your web app in a path other than the root, change the
-    href value below to reflect the base path you are serving from.
-
-    The path provided below has to start and end with a slash "/" in order for
-    it to work correctly.
-
-    For more details:
-    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
-
-    This is a placeholder for base href that will be replaced by the value of
-    the `--base-href` argument provided to `flutter build`.
-  -->
-  <base href="/english-course/">
-
+  <base href="/easy-dashboard/">
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="EasyEnglish-B2 - Belajar Bahasa Inggris Level B2 Offline">
-
-  <!-- iOS meta tags & icons -->
+  <meta name="description" content="Dashboard Analytic - Visualization and Analysis of Sales Data">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="EasyEnglish-B2">
+  <meta name="apple-mobile-web-app-title" content="Dashboard Analytic">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
-
-  <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png"/>
-
-  <title>EasyEnglish-B2</title>
+  <title>Dashboard Analytic</title>
   <link rel="manifest" href="manifest.json">
 </head>
 <body>
-  <!--
-    You can customize the "flutter_bootstrap.js" script.
-    This is useful to provide a custom configuration to the Flutter loader
-    or to give the user feedback during the initialization process.
-
-    For more details:
-    * https://docs.flutter.dev/platform-integration/web/initialization
-  -->
   <script src="flutter_bootstrap.js" async></script>
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('sw.js');
-      });
-    }
-
-    // Force offline TTS voice selection
-    function getOfflineVoiceName(lang) {
-      var voices = window.speechSynthesis.getVoices();
-      // Prefer local (non-network) voices matching the language
-      var local = voices.filter(function(v) { return !v.localService === false && v.lang.startsWith(lang.substring(0,2)); });
-      var offline = voices.filter(function(v) { return v.localService === true && v.lang.startsWith(lang.substring(0,2)); });
-      if (offline.length > 0) return offline[0].name;
-      if (local.length > 0) return local[0].name;
-      return '';
-    }
-
-    function setUtteranceOfflineVoice(utterance, lang) {
-      var voices = window.speechSynthesis.getVoices();
-      var offline = voices.filter(function(v) { return v.localService === true && v.lang.startsWith(lang.substring(0,2)); });
-      if (offline.length > 0) {
-        utterance.voice = offline[0];
-      }
-    }
-  </script>
 </body>
 </html>
