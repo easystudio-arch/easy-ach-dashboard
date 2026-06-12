@@ -1,5 +1,5 @@
 const CACHE_NAME = 'Dashboard Analytic-v1';
-const BASE = '/english-course/';
+const BASE = '/easy-ach-dashboard/';
 const ASSETS = [
   './',
   'index.html',
