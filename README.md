@@ -22,7 +22,7 @@ Sales analytics dashboard demo built with Flutter Web. Visual-only — no API or
 ```bash
 flutter clean
 flutter pub get
-flutter build web --base-href /dashboard/ --release
+flutter build web --base-href /easy-ach-dashboard/ --release
 ```
 
 ### Deploy to GitHub Pages
@@ -30,7 +30,7 @@ flutter build web --base-href /dashboard/ --release
 ```bash
 robocopy build\web docs /MIR
 git add .
-git commit -m "deploy web"
+git commit -m "fix/route web"
 git push
 ```
 
