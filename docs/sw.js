@@ -1,4 +1,4 @@
-const CACHE_NAME = 'Dashboard Analytic-v1';
+const CACHE_NAME = 'Dashboard Analytic-v2';
 const BASE = '/easy-ach-dashboard/';
 const ASSETS = [
   './',

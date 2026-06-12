@@ -38,13 +38,14 @@ class _PosScreenState extends State<PosScreen> {
 
   void _checkout() {
     if (_cart.isEmpty) return;
-    ReceiptService.printReceipt(_cart, _total);
     showDialog(
       context: context,
-      builder: (_) => AlertDialog(
-        title: const Text('Checkout Success'),
-        content: Text('Total: \$${_currFmt.format(_total)}\nItems: ${_cart.fold<int>(0, (s, i) => s + i.qty)}\n\nReceipt sent to printer.'),
-        actions: [TextButton(onPressed: () { Navigator.pop(context); setState(() => _cart.clear()); }, child: const Text('OK'))],
+      builder: (_) => _PaymentDialog(
+        total: _total,
+        onConfirm: (method) {
+          ReceiptService.printReceipt(_cart, _total, paymentMethod: method);
+          setState(() => _cart.clear());
+        },
       ),
     );
   }
@@ -179,6 +180,59 @@ class _ProductTile extends StatelessWidget {
           ]),
         ),
       ),
+    );
+  }
+}
+
+
+class _PaymentDialog extends StatefulWidget {
+  final double total;
+  final void Function(String method) onConfirm;
+  const _PaymentDialog({required this.total, required this.onConfirm});
+
+  @override
+  State<_PaymentDialog> createState() => _PaymentDialogState();
+}
+
+class _PaymentDialogState extends State<_PaymentDialog> {
+  String _selected = 'Cash';
+
+  static const _methods = [
+    {'name': 'Cash', 'icon': Icons.money},
+    {'name': 'Transfer', 'icon': Icons.account_balance},
+    {'name': 'QRIS', 'icon': Icons.qr_code},
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    return AlertDialog(
+      title: const Text('Payment Method'),
+      content: Column(mainAxisSize: MainAxisSize.min, children: [
+        Text('Total: \$${_currFmt.format(widget.total)}', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: cs.primary)),
+        const SizedBox(height: 16),
+        ..._methods.map((m) => RadioListTile<String>(
+          title: Row(children: [
+            Icon(m['icon'] as IconData, size: 20),
+            const SizedBox(width: 8),
+            Text(m['name'] as String),
+          ]),
+          value: m['name'] as String,
+          groupValue: _selected,
+          onChanged: (v) => setState(() => _selected = v!),
+        )),
+      ]),
+      actions: [
+        TextButton(onPressed: () => Navigator.pop(context), child: const Text('Cancel')),
+        FilledButton.icon(
+          icon: const Icon(Icons.print),
+          label: const Text('Pay & Print'),
+          onPressed: () {
+            Navigator.pop(context);
+            widget.onConfirm(_selected);
+          },
+        ),
+      ],
     );
   }
 }

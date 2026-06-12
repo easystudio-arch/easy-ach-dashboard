@@ -8,7 +8,7 @@ class ReceiptService {
   static final _currFmt = NumberFormat('#,##0.00', 'en_US');
   static final _dateFmt = DateFormat('dd/MM/yyyy HH:mm');
 
-  static void printReceipt(List<CartItem> items, double total) {
+  static void printReceipt(List<CartItem> items, double total, {String paymentMethod = 'Cash'}) {
     final settings = LocalStorageService.loadSettings();
     final storeName = settings['storeName'] ?? 'My Store';
     final paperSize = settings['paperSize'] ?? '58';
@@ -31,6 +31,7 @@ class ReceiptService {
 
     lines.add(_repeat('-', charWidth));
     lines.add(_padBoth('TOTAL', '\$${_currFmt.format(total)}', charWidth));
+    lines.add(_padBoth('Payment', paymentMethod, charWidth));
     lines.add(_repeat('=', charWidth));
     lines.add(_center('Thank you!', charWidth));
 
