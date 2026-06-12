@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../data/pos_inventory_data.dart';
+import '../services/receipt_service.dart';
 
 final _currFmt = NumberFormat('#,##0.00', 'en_US');
 
@@ -37,11 +38,12 @@ class _PosScreenState extends State<PosScreen> {
 
   void _checkout() {
     if (_cart.isEmpty) return;
+    ReceiptService.printReceipt(_cart, _total);
     showDialog(
       context: context,
       builder: (_) => AlertDialog(
         title: const Text('Checkout Success'),
-        content: Text('Total: \$${_currFmt.format(_total)}\nItems: ${_cart.fold<int>(0, (s, i) => s + i.qty)}'),
+        content: Text('Total: \$${_currFmt.format(_total)}\nItems: ${_cart.fold<int>(0, (s, i) => s + i.qty)}\n\nReceipt sent to printer.'),
         actions: [TextButton(onPressed: () { Navigator.pop(context); setState(() => _cart.clear()); }, child: const Text('OK'))],
       ),
     );

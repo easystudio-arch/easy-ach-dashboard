@@ -16,32 +16,96 @@ class _InventoryScreenState extends State<InventoryScreen> {
   String _search = '';
 
   List<Product> get _filtered {
-    return PosInventoryData.products.where((p) {
+    return ProductStore.products.where((p) {
       final matchCat = _selectedCategory == 'All' || p.category == _selectedCategory;
       final matchSearch = p.name.toLowerCase().contains(_search.toLowerCase());
       return matchCat && matchSearch;
     }).toList();
   }
 
+  void _showProductDialog({Product? product}) {
+    final isEdit = product != null;
+    final nameCtrl = TextEditingController(text: product?.name ?? '');
+    final catCtrl = TextEditingController(text: product?.category ?? '');
+    final priceCtrl = TextEditingController(text: product != null ? product.price.toString() : '');
+    final stockCtrl = TextEditingController(text: product != null ? product.stock.toString() : '');
+    final skuCtrl = TextEditingController(text: product?.sku ?? '');
+
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text(isEdit ? 'Edit Product' : 'Add Product'),
+        content: SingleChildScrollView(
+          child: Column(mainAxisSize: MainAxisSize.min, children: [
+            TextField(controller: nameCtrl, decoration: const InputDecoration(labelText: 'Name', isDense: true)),
+            const SizedBox(height: 8),
+            TextField(controller: catCtrl, decoration: const InputDecoration(labelText: 'Category', isDense: true)),
+            const SizedBox(height: 8),
+            TextField(controller: skuCtrl, decoration: const InputDecoration(labelText: 'SKU', isDense: true)),
+            const SizedBox(height: 8),
+            TextField(controller: priceCtrl, decoration: const InputDecoration(labelText: 'Price', isDense: true), keyboardType: TextInputType.number),
+            const SizedBox(height: 8),
+            TextField(controller: stockCtrl, decoration: const InputDecoration(labelText: 'Stock', isDense: true), keyboardType: TextInputType.number),
+          ]),
+        ),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(context), child: const Text('Cancel')),
+          FilledButton(
+            onPressed: () {
+              final p = Product(
+                id: product?.id ?? ProductStore.nextId(),
+                name: nameCtrl.text,
+                category: catCtrl.text,
+                price: double.tryParse(priceCtrl.text) ?? 0,
+                stock: int.tryParse(stockCtrl.text) ?? 0,
+                sku: skuCtrl.text,
+              );
+              setState(() { isEdit ? ProductStore.update(p) : ProductStore.add(p); });
+              Navigator.pop(context);
+            },
+            child: Text(isEdit ? 'Save' : 'Add'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _deleteProduct(Product p) {
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: const Text('Delete Product'),
+        content: Text('Delete "${p.name}"?'),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(context), child: const Text('Cancel')),
+          FilledButton(
+            style: FilledButton.styleFrom(backgroundColor: Colors.red),
+            onPressed: () { setState(() => ProductStore.delete(p.id)); Navigator.pop(context); },
+            child: const Text('Delete'),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
-    final totalItems = PosInventoryData.products.fold<int>(0, (s, p) => s + p.stock);
-    final lowStock = PosInventoryData.products.where((p) => p.stock < 25).length;
+    final totalItems = ProductStore.products.fold<int>(0, (s, p) => s + p.stock);
+    final lowStock = ProductStore.products.where((p) => p.stock < 25).length;
 
     return Scaffold(
       appBar: AppBar(title: const Text('Inventory')),
+      floatingActionButton: FloatingActionButton(onPressed: () => _showProductDialog(), child: const Icon(Icons.add)),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          // Summary cards
           Wrap(spacing: 12, runSpacing: 12, children: [
-            _SummaryChip(label: 'Total Products', value: '${PosInventoryData.products.length}', icon: Icons.inventory_2, color: cs.primary),
+            _SummaryChip(label: 'Total Products', value: '${ProductStore.products.length}', icon: Icons.inventory_2, color: cs.primary),
             _SummaryChip(label: 'Total Stock', value: _currFmt.format(totalItems), icon: Icons.warehouse, color: Colors.teal),
             _SummaryChip(label: 'Low Stock', value: '$lowStock', icon: Icons.warning_amber, color: Colors.orange),
           ]),
           const SizedBox(height: 20),
-          // Filters
           Row(children: [
             Expanded(
               child: TextField(
@@ -52,33 +116,26 @@ class _InventoryScreenState extends State<InventoryScreen> {
             const SizedBox(width: 12),
             DropdownButton<String>(
               value: _selectedCategory,
-              items: ['All', ...PosInventoryData.categories].map((c) => DropdownMenuItem(value: c, child: Text(c))).toList(),
+              items: ['All', ...ProductStore.categories].map((c) => DropdownMenuItem(value: c, child: Text(c))).toList(),
               onChanged: (v) => setState(() => _selectedCategory = v!),
             ),
           ]),
           const SizedBox(height: 16),
-          // Product table
           Card(
             child: Padding(
               padding: const EdgeInsets.all(12),
-              child: Table(
-                columnWidths: const {0: FlexColumnWidth(0.8), 1: FlexColumnWidth(2), 2: FlexColumnWidth(1.2), 3: FlexColumnWidth(1), 4: FlexColumnWidth(0.8)},
-                children: [
-                  const TableRow(children: [
-                    Padding(padding: EdgeInsets.only(bottom: 10), child: Text('SKU', style: TextStyle(fontWeight: FontWeight.w600, fontSize: 12))),
-                    Text('Product', style: TextStyle(fontWeight: FontWeight.w600, fontSize: 12)),
-                    Text('Category', style: TextStyle(fontWeight: FontWeight.w600, fontSize: 12)),
-                    Text('Price', style: TextStyle(fontWeight: FontWeight.w600, fontSize: 12)),
-                    Text('Stock', style: TextStyle(fontWeight: FontWeight.w600, fontSize: 12)),
+              child: Column(
+                children: _filtered.map((p) => ListTile(
+                  dense: true,
+                  title: Text(p.name, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500)),
+                  subtitle: Text('${p.sku} • ${p.category} • \$${_currFmt.format(p.price)}', style: const TextStyle(fontSize: 11)),
+                  trailing: Row(mainAxisSize: MainAxisSize.min, children: [
+                    _StockBadge(stock: p.stock),
+                    const SizedBox(width: 8),
+                    IconButton(icon: const Icon(Icons.edit, size: 18), onPressed: () => _showProductDialog(product: p)),
+                    IconButton(icon: const Icon(Icons.delete, size: 18, color: Colors.red), onPressed: () => _deleteProduct(p)),
                   ]),
-                  ..._filtered.map((p) => TableRow(children: [
-                    Padding(padding: const EdgeInsets.symmetric(vertical: 6), child: Text(p.sku, style: const TextStyle(fontSize: 12, fontFamily: 'monospace'))),
-                    Padding(padding: const EdgeInsets.symmetric(vertical: 6), child: Text(p.name, style: const TextStyle(fontSize: 13))),
-                    Padding(padding: const EdgeInsets.symmetric(vertical: 6), child: Text(p.category, style: const TextStyle(fontSize: 13))),
-                    Padding(padding: const EdgeInsets.symmetric(vertical: 6), child: Text('\$${_currFmt.format(p.price)}', style: const TextStyle(fontSize: 13))),
-                    Padding(padding: const EdgeInsets.symmetric(vertical: 6), child: _StockBadge(stock: p.stock)),
-                  ])),
-                ],
+                )).toList(),
               ),
             ),
           ),

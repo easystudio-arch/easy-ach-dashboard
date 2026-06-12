@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'data/pos_inventory_data.dart';
 import 'screens/dashboard_screen.dart';
 import 'screens/pos_screen.dart';
 import 'screens/inventory_screen.dart';
+import 'screens/settings_screen.dart';
 
-void main() => runApp(const DashboardApp());
+void main() {
+  ProductStore.init();
+  runApp(const DashboardApp());
+}
 
 class DashboardApp extends StatelessWidget {
   const DashboardApp({super.key});
@@ -44,6 +49,7 @@ class _MainShellState extends State<MainShell> {
     DashboardScreen(),
     PosScreen(),
     InventoryScreen(),
+    SettingsScreen(),
   ];
 
   @override
@@ -57,6 +63,7 @@ class _MainShellState extends State<MainShell> {
           NavigationDestination(icon: Icon(Icons.dashboard_outlined), selectedIcon: Icon(Icons.dashboard), label: 'Dashboard'),
           NavigationDestination(icon: Icon(Icons.point_of_sale_outlined), selectedIcon: Icon(Icons.point_of_sale), label: 'POS'),
           NavigationDestination(icon: Icon(Icons.inventory_2_outlined), selectedIcon: Icon(Icons.inventory_2), label: 'Inventory'),
+          NavigationDestination(icon: Icon(Icons.settings_outlined), selectedIcon: Icon(Icons.settings), label: 'Settings'),
         ],
       ),
     );

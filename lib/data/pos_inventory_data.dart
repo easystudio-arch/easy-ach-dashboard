@@ -1,3 +1,5 @@
+import '../services/local_storage_service.dart';
+
 class Product {
   final String id;
   final String name;
@@ -16,8 +18,31 @@ class CartItem {
   double get subtotal => product.price * qty;
 }
 
-class PosInventoryData {
-  static final List<Product> products = [
+class ProductStore {
+  static List<Product> _products = [];
+
+  static List<Product> get products => _products;
+  static List<String> get categories => _products.map((p) => p.category).toSet().toList();
+
+  static void init() {
+    _products = LocalStorageService.loadProducts();
+    if (_products.isEmpty) {
+      _products = _defaultProducts;
+      _save();
+    }
+  }
+
+  static void add(Product p) { _products.add(p); _save(); }
+  static void update(Product p) {
+    final i = _products.indexWhere((x) => x.id == p.id);
+    if (i >= 0) { _products[i] = p; _save(); }
+  }
+  static void delete(String id) { _products.removeWhere((x) => x.id == id); _save(); }
+  static void _save() => LocalStorageService.saveProducts(_products);
+
+  static String nextId() => DateTime.now().millisecondsSinceEpoch.toString();
+
+  static final List<Product> _defaultProducts = [
     Product(id: '1', name: 'Wireless Headphones', category: 'Electronics', price: 150.00, stock: 45, sku: 'ELC-001'),
     Product(id: '2', name: 'Smart Watch Pro', category: 'Electronics', price: 300.00, stock: 28, sku: 'ELC-002'),
     Product(id: '3', name: 'Running Shoes X1', category: 'Sports', price: 150.00, stock: 62, sku: 'SPT-001'),
@@ -31,6 +56,10 @@ class PosInventoryData {
     Product(id: '11', name: 'Tennis Racket', category: 'Sports', price: 85.00, stock: 22, sku: 'SPT-003'),
     Product(id: '12', name: 'Sunglasses Classic', category: 'Fashion', price: 70.00, stock: 48, sku: 'FSH-003'),
   ];
+}
 
-  static List<String> get categories => products.map((p) => p.category).toSet().toList();
+// Keep backward compat alias
+class PosInventoryData {
+  static List<Product> get products => ProductStore.products;
+  static List<String> get categories => ProductStore.categories;
 }
